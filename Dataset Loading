@@ -1,0 +1,9 @@
+
+# Load the dataset
+bfriday_sales_train = pd.read_csv("C:\\Users\\chunc\\OneDrive\\Documents\\Hari_Project\\Datasets\\train.csv\\train.csv")
+
+# Load the dataset into a DataFrame
+bf_sales_train_df = pd.read_csv("C:\\Users\\chunc\\OneDrive\\Documents\\Hari_Project\\Datasets\\train.csv\\train.csv")
+
+print("The train dataset has been loaded")
+
