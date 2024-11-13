@@ -1,0 +1,17 @@
+# import dependencies/libraries  
+
+import numpy as np  # Mathematical computations and array operations 
+import pandas as pd  # Data manipulation and analysis, especially for DataFrames
+import seaborn as sb  # to visualize random distributions/statistical graphics
+from sklearn.impute import SimpleImputer # Statistical data visualization and plotting
+import matplotlib # Visualization support for data exploration
+import matplotlib.pyplot as plt # For plotting graphs and visualizations 
+import sklearn # Importing the main scikit-learn library for machine learning functions
+
+
+# Print each library version
+print(f"The numpy version is {np.__version__}.")
+print(f"The matplotlib version is {matplotlib.__version__}.")
+print(f"The scikit-learn version is {sklearn.__version__}.")
+print(f"The pandas version is {pd.__version__}.")
+print(f"The seaborn version is {sb.__version__}.")
