@@ -1,0 +1,49 @@
+# Analysis report for training dataset (prior to pre-processing)
+'''
+!pip install sweetviz
+
+import sweetviz as sv 
+train_dataset_report=sv.analyze([bfriday_sales_train, 'Black Friday Train dataset'], target_feat = 'Purchase')
+train_dataset_report.show_html('bfriday_train.html', open_browser=False)
+'''
+
+
+# Analysis report for testing dataset (prior to pre-processing)
+#!pip install sweetviz
+'''
+import sweetviz as sv 
+test_dataset_report=sv.analyze([bfriday_sales_test, 'Black Friday Test dataset'])
+test_dataset_report.show_html('bfriday_test.html', open_browser=False)
+'''
+
+
+# train_test_analysis
+'''
+import IPython
+train_vs_test_report=sv.compare([bfriday_sales_train, 'Black Friday Train dataset'], [bfriday_sales_test, 'Black Friday Test dataset'], 'Purchase')
+train_vs_test_report.show_html('train_vs_test_report.html', open_browser=False)
+'''
+
+
+'''
+# to performs automatic visualization of the dataset
+!pip install autoviz
+from autoviz.AutoViz_Class import AutoViz_Class
+AV = AutoViz_Class()
+filename = "C:\\Users\\chunc\\OneDrive\\Documents\\Hari_Project\\Datasets\\train.csv\\train.csv"
+sep = ","
+dft = AV.AutoViz(
+    filename,
+    sep=",",
+    depVar="",
+    dfte=None,
+    header=0,
+    verbose=0,
+    lowess=False,
+    chart_format="svg",
+    max_rows_analyzed=550068,
+    max_cols_analyzed=12
+)
+'''
+
+
