@@ -1,0 +1,28 @@
+
+# Plot a bar graph for counts of Gender
+plt.figure(figsize=(6, 6))
+gender_counts = bfriday_sales_train['Gender'].value_counts()
+plt.bar(gender_counts.index, gender_counts.values, color=['purple', 'red'])
+plt.xlabel('Gender')
+plt.ylabel('Count')
+plt.title('Count of Gender in Dataset')
+plt.show()
+
+
+bfriday_sales_train['Gender'].value_counts(normalize=True)*100
+
+bfriday_sales_train.groupby("Gender").mean()["Purchase"]
+
+
+# Set the plot size
+plt.figure(figsize=(8, 6))
+
+# Plot the barplot for Gender vs Purchase
+gender_purchase_plot = sb.barplot(data=bfriday_sales_train, x='Gender', y='Purchase' , palette='Blues')
+
+# Set the title of the plot
+gender_purchase_plot.set_title('Gender vs Purchase')
+
+# Show the plot
+plt.show()
+ 
