@@ -1,0 +1,12 @@
+# Distribution of 'Stay_In_Current_City_Years'
+plt.figure(figsize=(10, 6))
+sb.countplot(x='Stay_In_Current_City_Years', data=bfriday_sales_train)
+plt.title('Transactions by Stay in Current City')
+plt.show()
+
+
+# Boxplot of 'Purchase' vs 'Stay_In_Current_City_Years'
+plt.figure(figsize=(10, 6))
+sb.boxplot(x='Stay_In_Current_City_Years', y='Purchase', data=bfriday_sales_train)
+plt.title('Purchase Distribution by Stay in Current City (Years)')
+plt.show()
