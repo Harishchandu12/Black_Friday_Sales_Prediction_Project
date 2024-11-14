@@ -1,0 +1,28 @@
+# Plot number of transactions by age group
+age_group_data = bfriday_sales_train['Age'].value_counts().reset_index()
+age_group_data.columns = ['Age Group', 'Transaction Count']
+
+plt.figure(figsize=(10, 6))
+sb.barplot(data=age_group_data, x='Age Group', y='Transaction Count', palette='Blues')
+plt.title('Transactions by Age Group')
+plt.xlabel('Age Group')
+plt.ylabel('Transaction Count')
+plt.show()
+
+
+
+
+# Plot the graph to counts of Gender using countplot
+plt.figure(figsize=(6,6))
+sb.countplot(data=bfriday_sales_train, x='Age')
+
+
+
+# plot the data using bar chart diagram to lis the average buy rate vs all age groups
+plt.figure(figsize=(6,6))
+bfriday_sales_train.groupby("Age").mean()["Purchase"].plot(kind='bar')
+
+
+# plot the data using bar chart diagram to lis the average buy rate vs all age groups
+plt.figure(figsize=(6,6))
+bfriday_sales_train.groupby("Age").mean()["Purchase"].plot(kind='bar')
