@@ -1,0 +1,58 @@
+bfriday_sales_train.dtypes.value_counts().plot.pie(explode=[0.1,0.1,0.1],autopct='%1.2f%%',shadow=True)
+plt.title('Type of Black Friday Data');
+
+
+# From above output we can see there are Null values so now will try to display the number of /count of Null values.
+# Dispaly NULL values for individual column in the train dataset
+# The isnull().sum() funcation will help in finding all the null values present in the columns 
+bfriday_sales_train.isnull().sum()
+
+
+# Visualize the Null values using heatmap
+sb.heatmap(bfriday_sales_train.isnull(), cbar=False)
+
+# We see there are NULL values in both "Product_Category_2" and "Product_Category_3"
+# now will check what % of NULL values in each column
+bfriday_sales_train.isnull().sum()/bfriday_sales_train.shape[0]*100 # display the NULL values % in each column
+
+
+# Since the features "Age" and "Stay_In_Current_City_Years" has some values with "+" and ranges "-"
+# so will try to find the count of each values in those 2 columns
+
+round((bfriday_sales_train['Age'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %'  # unique values of Age cloumn
+
+
+
+round((bfriday_sales_train['Stay_In_Current_City_Years'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %' # unique values of Age Stay_In_Current_City_Years
+
+
+
+# Display the Unique values in each attribute/column
+bfriday_sales_train.nunique()
+
+# Print the gender unique values count by dividing all values by the sum of values
+bfriday_sales_train['Gender'].value_counts(normalize=True)*100
+
+
+
+# We saw that high number of customers are Males so now will check the marital status of all genders
+# Display the count of marital status of customers
+bfriday_sales_train['Marital_Status'].value_counts()
+
+
+# Since we found more purches done by Mens and are married
+# So now, will dispaly what is the maximum & minimum price/range of purchase in both the male & female catogries
+max_price = bfriday_sales_train['Purchase'].max() # max price 
+min_price = bfriday_sales_train['Purchase'].min() # min price
+print("Maximum price range of purchase in both the male & female catogries is: " ,(max_price))
+print("Maximum price range of purchase in both the male & female catogries is: " ,(min_price))
+
+
+
+# Since we say both max and min purchase price, now will check what is mean purchase of both genders irrespective of marital status
+# Display mean/average purchase values for overall Gender category
+bfriday_sales_train.groupby("Gender").mean()["Purchase"]
+
+
+# Display mean/average purchase values for Marital status category
+bfriday_sales_train.groupby("Marital_Status").mean()["Purchase"]
