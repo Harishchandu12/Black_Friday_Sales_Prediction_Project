@@ -17,6 +17,7 @@ print("Total distinct products -> {}".format(distinct_products))
 
 
 
+
 # Display descriptive statistics and shape for all numerical columns in the training dataset
 bf_sales_train_df.describe()
 
