@@ -11,7 +11,7 @@ plt.show()
 
 bfriday_sales_train['Gender'].value_counts(normalize=True)*100
 
-bfriday_sales_train.groupby("Gender").mean()["Purchase"]
+bfriday_sales_train.groupby("Gender")["Purchase"].mean()
 
 
 # Set the plot size
