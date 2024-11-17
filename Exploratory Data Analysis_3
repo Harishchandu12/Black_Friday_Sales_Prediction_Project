@@ -20,9 +20,34 @@ sb.countplot(data=bfriday_sales_train, x='Age')
 
 # plot the data using bar chart diagram to lis the average buy rate vs all age groups
 plt.figure(figsize=(6,6))
-bfriday_sales_train.groupby("Age").mean()["Purchase"].plot(kind='bar')
+bfriday_sales_train.groupby("Age")["Purchase"].mean().plot(kind='bar')
 
 
-# plot the data using bar chart diagram to lis the average buy rate vs all age groups
-plt.figure(figsize=(6,6))
-bfriday_sales_train.groupby("Age").mean()["Purchase"].plot(kind='bar')
+
+
+
+
+# Group by Age and calculate the sum of Purchase
+age_purchase_sum = bfriday_sales_train.groupby("Age")["Purchase"].sum()
+
+# Plot the data as a line chart
+plt.figure(figsize=(10, 6))  # Set figure size
+plt.plot(age_purchase_sum.index, age_purchase_sum.values, marker="o", linestyle="-", color="blue", label="Total Purchase")
+
+# Add title and axis labels
+plt.title("Total Purchase Amount by Age", fontsize=16, fontweight="bold")
+plt.xlabel("Age", fontsize=14)
+plt.ylabel("Total Purchase Amount", fontsize=14)
+
+# Customize ticks
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+
+# Add grid and legend
+plt.grid(linestyle="--", alpha=0.7)
+plt.legend(fontsize=12)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
+
