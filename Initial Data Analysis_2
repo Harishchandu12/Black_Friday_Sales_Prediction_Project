@@ -45,14 +45,14 @@ bfriday_sales_train['Marital_Status'].value_counts()
 max_price = bfriday_sales_train['Purchase'].max() # max price 
 min_price = bfriday_sales_train['Purchase'].min() # min price
 print("Maximum price range of purchase in both the male & female catogries is: " ,(max_price))
-print("Maximum price range of purchase in both the male & female catogries is: " ,(min_price))
+print("Minimum price range of purchase in both the male & female catogries is: " ,(min_price))
 
 
 
 # Since we say both max and min purchase price, now will check what is mean purchase of both genders irrespective of marital status
 # Display mean/average purchase values for overall Gender category
-bfriday_sales_train.groupby("Gender").mean()["Purchase"]
+bfriday_sales_train.groupby("Gender")["Purchase"].mean()
 
 
 # Display mean/average purchase values for Marital status category
-bfriday_sales_train.groupby("Marital_Status").mean()["Purchase"]
+bfriday_sales_train.groupby("Marital_Status")["Purchase"].mean()
