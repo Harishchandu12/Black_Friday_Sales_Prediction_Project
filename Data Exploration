@@ -1,6 +1,7 @@
 # display the number of rows and columns from the train dataset (dimensions)
 bf_sales_train_df.shape
 
+
 # display initial data from the dataset
 bfriday_sales_train_df.head()
 
