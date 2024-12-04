@@ -1,0 +1,107 @@
+1. Handling Missing Values or Null values
+
+# From above output we can see there are Null values so now will try to display the number of /count of Null values.
+# Dispaly NULL values for individual column in the train dataset
+# The isnull().sum() funcation will help in finding all the null values present in the columns 
+bfriday_sales_train_df.isnull().sum()
+
+# Visualize the Null values using heatmap
+sb.heatmap(bfriday_sales_train_df.isnull(), cbar=False)
+
+# We see there are NULL values in both "Product_Category_2" and "Product_Category_3"
+# now will check what % of NULL values in each column
+bfriday_sales_train_df.isnull().sum() / bfriday_sales_train_df.shape[0] * 100
+
+
+2. Special Characters
+
+# Display the Unique values in each attribute/column
+bfriday_sales_train_df.nunique()
+
+bfriday_sales_train_df['Age'].value_counts() 
+
+# Since the features "Age" and "Stay_In_Current_City_Years" has some values with "+" and ranges "-"
+# so will try to find the count of each values in those 2 columns
+
+round((bfriday_sales_train_df['Age'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %'  # unique values of Age column
+
+
+bfriday_sales_train_df['Stay_In_Current_City_Years'].value_counts() 
+
+round((bfriday_sales_train_df['Stay_In_Current_City_Years'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %' # unique values of Age Stay_In_Current_City_Years
+
+
+# Display the duplicate values in each attribute/column
+duplicate_data= bfriday_sales_train_df[bfriday_sales_train_df.duplicated()]
+duplicate_data.count()
+
+
+
+# Display duplicate User_IDs
+Unique_User_IDs = len(set(bfriday_sales_train_df.User_ID))
+Total_User_IDs = bfriday_sales_train_df.shape[0]
+Dup_User_IDs = Total_User_IDs - Unique_User_IDs
+print("There are " + str(Dup_User_IDs) + " duplicate User_ID for " + str(Total_User_IDs) + " total number of transactions in the dataset")
+
+
+3. Outlier Analysis
+
+#Diplay 25% and 75% Quartile values
+Q1= bfriday_sales_train_df["Purchase"].quantile(0.25)
+Q3= bfriday_sales_train_df["Purchase"].quantile(0.75)
+Q1,Q3
+
+# Display Inter quartile range
+IQR = Q3 - Q1
+IQR
+
+
+# Display the outlier with 1.5 standard range
+lower_lmt = Q1 - 1.5 *IQR
+upper_lmt = Q3 + 1.5 *IQR
+
+print("Upper limit of outlier is: ",upper_lmt)
+print("Lower limit of outlier is: ",lower_lmt)
+
+
+
+# Display the outliers purchase max and min values
+outliers_df=bfriday_sales_train_df[(bfriday_sales_train_df.Purchase < lower_lmt)|(bfriday_sales_train_df.Purchase > upper_lmt)]
+print("number of outliers: ",outliers_df['Purchase'].count())
+print("max purcahse value from the outliers is: ",outliers_df['Purchase'].max())
+print("min purchase value from the outliers: ",outliers_df['Purchase'].min())
+
+
+
+# to show the outliers in the purchases using boxplot
+sb.boxplot(data=bfriday_sales_train_df, x="Purchase").set(title='Boxplot of Purchase')
+
+
+4. Skewness and Distribution Checks
+
+# Display the skew data from the dataset
+print(bfriday_sales_train_df['Purchase'].skew())
+
+
+# Plotting the histogram and KDE of 'Purchase' column to visually inspect skewness and distribution
+plt.figure(figsize=(16, 6))
+
+# Histogram
+plt.subplot(1, 3, 1)
+sb.histplot(bfriday_sales_train_df['Purchase'], kde=False, bins=30, color='purple')
+plt.title('Histogram of Purchase')
+plt.xlabel('Purchase')
+plt.ylabel('Frequency')
+
+# KDE (Kernel Density Estimate) Plot
+plt.subplot(1, 3, 2)
+sb.kdeplot(bfriday_sales_train_df['Purchase'], shade=True, color='orange')
+plt.title('KDE Plot of Purchase')
+plt.xlabel('Purchase')
+plt.ylabel('Density')
+
+plt.tight_layout()
+plt.show()
+
+
+
