@@ -1,0 +1,1 @@
+sb.countplot(x='City_Category', data=bfriday_sales_train_df)
