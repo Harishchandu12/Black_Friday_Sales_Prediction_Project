@@ -1,0 +1,43 @@
+# Count plot for occurrences of each Product Category 1
+plt.figure(figsize=(12, 6))
+sb.countplot(data=bfriday_sales_train_df, x='Product_Category_1', palette='viridis')
+plt.title('Transaction Count by Product Category 1')
+plt.xlabel('Product Category 1')
+plt.ylabel('Transaction Count')
+plt.show()
+
+
+
+
+# Count plot for occurrences of each Product Category 2
+plt.figure(figsize=(12, 6))
+sb.countplot(data=bfriday_sales_train_df, x='Product_Category_2', palette='crest')
+plt.title('Transaction Count by Product Category 2')
+plt.xlabel('Product Category 2')
+plt.ylabel('Transaction Count')
+plt.show()
+
+
+
+# Count plot for occurrences of each Product Category 3
+plt.figure(figsize=(12, 6))
+sb.countplot(data=bfriday_sales_train_df, x='Product_Category_3', palette='coolwarm')
+plt.title('Transaction Count by Product Category 3')
+plt.xlabel('Product Category 3')
+plt.ylabel('Transaction Count')
+plt.show()
+
+
+
+
+# Count most popular Product Category 1 by Age and Gender
+popular_products = bfriday_sales_train_df.groupby(['Age', 'Gender', 'Product_Category_1']).size().reset_index(name='Count')
+top_products = popular_products.sort_values(['Age', 'Gender', 'Count'], ascending=[True, True, False]).groupby(['Age', 'Gender']).head(1)
+
+plt.figure(figsize=(14, 8))
+sb.barplot(data=top_products, x='Age', y='Count', hue='Gender', palette='magma', dodge=True)
+plt.title('Most Popular Products by Age and Gender (Top Product Category 1)')
+plt.xlabel('Age Group')
+plt.ylabel('Count')
+plt.legend(title='Gender')
+plt.show()
