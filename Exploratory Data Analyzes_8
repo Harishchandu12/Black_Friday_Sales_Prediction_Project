@@ -3,6 +3,7 @@ occupation_data = bfriday_sales_train_df.groupby('Occupation').agg(
     total_purchase=('Purchase', 'sum')
 ).reset_index()
 
+
 # Plot total purchases by Occupation
 plt.figure(figsize=(10, 6))
 sb.barplot(data=occupation_data, x='Occupation', y='total_purchase', palette='viridis')
