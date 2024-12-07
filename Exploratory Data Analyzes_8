@@ -1,0 +1,28 @@
+# Aggregate total purchases by Occupation
+occupation_data = bfriday_sales_train_df.groupby('Occupation').agg(
+    total_purchase=('Purchase', 'sum')
+).reset_index()
+
+# Plot total purchases by Occupation
+plt.figure(figsize=(10, 6))
+sb.barplot(data=occupation_data, x='Occupation', y='total_purchase', palette='viridis')
+plt.title('Total Purchase by Occupation')
+plt.xlabel('Occupation')
+plt.ylabel('Total Purchase')
+plt.show()
+
+
+
+
+# Aggregate average purchase by Occupation
+occupation_data = bfriday_sales_train_df.groupby('Occupation').agg(
+    avg_purchase=('Purchase', 'mean')
+).reset_index()
+
+# Plot Average Purchase by Occupation
+plt.figure(figsize=(10, 6))
+sb.barplot(data=occupation_data, x='Occupation', y='avg_purchase', palette='cividis')
+plt.title('Average Purchase by Occupation')
+plt.xlabel('Occupation')
+plt.ylabel('Average Purchase')
+plt.show()
