@@ -1,0 +1,5 @@
+sb.boxplot(x='Gender', y='Purchase', data=bfriday_sales_train_df)
+
+sb.boxplot(x='Age', y='Purchase', data=bfriday_sales_train_df)
+
+sb.boxplot(x='City_Category', y='Purchase', data=bfriday_sales_train_df)
