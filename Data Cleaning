@@ -1,0 +1,24 @@
+# Fill NaN values with 0 in the entire DataFrame
+bfriday_sales_train_df = bfriday_sales_train_df.fillna(0)
+
+
+bfriday_sales_train_df.isnull().sum()
+
+# Print the data before the data cleaning
+bfriday_sales_train_df.head(10)
+
+# Handling special characters in 'Age' and 'Stay_In_Current_City_Years' columns
+
+# Remove the '+' character from 'Age'
+bfriday_sales_train_df['Age'] = bfriday_sales_train_df['Age'].str.replace('+', '', regex=False)
+
+# Remove the '+' character from 'Stay_In_Current_City_Years' and convert to float
+bfriday_sales_train_df['Stay_In_Current_City_Years'] = (
+    bfriday_sales_train_df['Stay_In_Current_City_Years']
+    .str.replace('+', '', regex=False)
+    .astype(float)
+)
+
+
+# Now, lets validate the data
+bfriday_sales_train_df.head(5)
