@@ -1,0 +1,36 @@
+sb.barplot(x='Product_Category_1', y='Purchase', data=bfriday_sales_train_df, estimator='mean', ci='sd')
+plt.title('Average Purchase by Product Category')
+plt.xlabel('Product Category 1')
+plt.ylabel('Average Purchase')
+plt.show()
+
+
+sb.pointplot(x='Product_Category_2', y='Purchase', data=bfriday_sales_train_df, estimator='mean', ci='sd')
+plt.title('Point Plot of Purchase by Product Category')
+plt.xlabel('Product Category 2')
+plt.ylabel('Average Purchase')
+plt.show()
+
+
+
+sb.boxplot(x='Product_Category_3', y='Purchase', data=bfriday_sales_train_df)
+
+
+sb.barplot(x='Age', y='Purchase', hue='Gender', data=bfriday_sales_train_df, estimator='mean', ci='sd')
+plt.title('Average Purchase by Age and Gender')
+plt.xlabel('Age Group')
+plt.ylabel('Average Purchase')
+plt.show()
+
+
+sb.boxplot(x='Stay_In_Current_City_Years', y='Purchase', hue='City_Category', data=bfriday_sales_train_df)
+
+
+sb.countplot(x='Stay_In_Current_City_Years', hue='City_Category', data=bfriday_sales_train_df)
+plt.title('Count of Purchases by Stay Duration and City Category')
+plt.xlabel('Stay Duration (Years)')
+plt.ylabel('Number of Purchases')
+plt.show()
+
+
+
