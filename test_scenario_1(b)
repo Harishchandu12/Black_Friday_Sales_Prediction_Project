@@ -1,0 +1,20 @@
+# Dividing the dataset into train & test 
+from sklearn.model_selection import train_test_split
+
+X = bfriday_sales_train_df.drop('Purchase', axis=1)
+y = bfriday_sales_train_df['Purchase']
+
+
+# Assuming X and y are already defined with features and target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+
+
+
+X1 = bfriday_sales_train_df.drop('Purchase', axis=1)
+y1 = bfriday_sales_train_df['Purchase']
+
+
+# splitting the data into 70% - 30%
+X1_train, X1_test, y1_train, y1_test = train_test_split(X, y, test_size=0.3, random_state=42)
