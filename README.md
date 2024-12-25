@@ -5,3 +5,6 @@ A retail company seeks to understand customer purchasing patterns, specifically 
 This project uses the Black Friday dataset to build a prediction model, applying machine learning techniques like Linear Regression, Random Forest Regression and XG Boost Regression. The performance and accuracy of these methods are compared, with a focus on data pre-processing and visualization for optimal results.
 
 MAE, RMSE and R2  helps to measure the accuracy and errors.
+
+
+# Project Structure
