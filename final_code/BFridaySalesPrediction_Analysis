@@ -83,3 +83,34 @@ print("The train dataset has been loaded")
 print(bfriday_sales_train_df.head(10))
 
 
+# display the total number of rows and columns of dataset (dimensions)
+bfriday_sales_train_df.shape
+
+# shows all the information about the dataset
+bfriday_sales_train_df.info()
+
+
+print("**********************************")
+print("The dataset uniquness/distinct details")
+print("**********************************")
+print("Total number of Transactions -> {}".format(bfriday_sales_train_df.shape[0]))
+
+# displays the number of  unique user_ID's
+distinct_users = len(bfriday_sales_train_df.User_ID.unique())
+print("Total distinct users -> {}".format(distinct_users))
+
+#displays the number of distinct products in a dataframe
+distinct_products = len(bfriday_sales_train_df.Product_ID.unique())
+print("Total distinct products -> {}".format(distinct_products))
+
+
+# displays the shape and descriptive statistics for each of the training dataset's numerical columns.
+bfriday_sales_train_df.describe()
+
+# Dispaly the descriptive statistics of column "Purchase"
+bfriday_sales_train_df['Purchase'].describe()
+
+
+# Verify which data types are included in the train dataset
+bfriday_sales_train_df.dtypes
+
