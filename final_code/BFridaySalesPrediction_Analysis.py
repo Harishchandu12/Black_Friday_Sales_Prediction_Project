@@ -114,3 +114,26 @@ bfriday_sales_train_df['Purchase'].describe()
 # Verify which data types are included in the train dataset
 bfriday_sales_train_df.dtypes
 
+
+# Data Quality Assessment
+'''
+ 1. Handling Missing Values or Null values 
+2. Special Characters
+3. Outlier Analysis
+4. Skewness and Distribution Checks
+'''
+
+# 1. Handling Misiing Values
+
+#This shows the null values in the each column of dtaset
+print(bfriday_sales_train_df.isnull().sum()) 
+
+
+# Use a heatmap to Visualize the null values.
+sb.heatmap(bfriday_sales_train_df.isnull(), cbar=False)
+
+
+
+# We saw that both "Product_Category_2" and "Product_Category_3" contain NULL values. 
+# We will now determine the percentage of NULL values in each column.
+print(bfriday_sales_train_df.isnull().sum() / bfriday_sales_train_df.shape[0] * 100)
