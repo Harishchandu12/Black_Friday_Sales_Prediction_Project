@@ -10,12 +10,19 @@ MAE, RMSE and R2  helps to measure the accuracy and errors.
 # Project Structure
 
  **Abstract**: Overview of the project's goals, methods, and findings.
+ 
  **Introduction**: Background, problem scope, and research aims.
+ 
  **Background**: Overview of the dataset, related studies, and algorithms.
+ 
  **Methodology**: Description of tools, techniques, and the research workflow.
+ 
  **Results and Conclusion**: Summary of experimental outcomes and insights.
+ 
  **Legal, Ethical, and Professional Issues**: Discussion on the responsible use of image data.
+ 
  **References**: List of all sources and references used.
+ 
  **Appendices**: Code and additional supporting materials.
 
 
