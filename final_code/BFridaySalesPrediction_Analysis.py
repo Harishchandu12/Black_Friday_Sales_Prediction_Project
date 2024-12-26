@@ -137,3 +137,38 @@ sb.heatmap(bfriday_sales_train_df.isnull(), cbar=False)
 # We saw that both "Product_Category_2" and "Product_Category_3" contain NULL values. 
 # We will now determine the percentage of NULL values in each column.
 print(bfriday_sales_train_df.isnull().sum() / bfriday_sales_train_df.shape[0] * 100)
+
+
+
+# **2. Special Characters/Range values**
+
+# Display the Unique values in each attribute/column
+print(bfriday_sales_train_df.nunique())
+
+#It will give how many times 'Age' value appears in a dataset 
+print(bfriday_sales_train_df['Age'].value_counts())
+
+# Since the features "Age" and "Stay_In_Current_City_Years" has some values with "+" and ranges "-"
+# so will try to find the count of each values in those 2 columns
+print(round((bfriday_sales_train_df['Age'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %' ) # unique values of Age cloumn
+
+#It will give count of each unique value in 'Stay_In_Current_City_Years' column appears in a dataset 
+print(bfriday_sales_train_df['Stay_In_Current_City_Years'].value_counts())
+
+
+#It will roundoff  each unique value in 'Stay_In_Current_City_Years' column in the form of percentages
+print(round((bfriday_sales_train_df['Stay_In_Current_City_Years'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %' ) # unique values of Age Stay_In_Current_City_Years
+
+
+# Display the duplicate values in each attribute/column
+duplicate_data= bfriday_sales_train_df[bfriday_sales_train_df.duplicated()]
+print(duplicate_data.count())
+
+
+# Display duplicate User_IDs
+Unique_User_IDs = len(set(bfriday_sales_train_df.User_ID))
+Total_User_IDs = bfriday_sales_train_df.shape[0]
+Dup_User_IDs = Total_User_IDs - Unique_User_IDs
+print("There are " + str(Dup_User_IDs) + " duplicate User_ID for " + str(Total_User_IDs) + " total number of transactions in the dataset")
+
+
