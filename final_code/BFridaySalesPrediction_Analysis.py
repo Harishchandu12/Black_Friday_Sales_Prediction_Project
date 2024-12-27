@@ -165,3 +165,22 @@ sb.boxplot(data=bfriday_sales_train_df, x="Purchase").set(title='Boxplot of Purc
 print(bfriday_sales_train_df['Purchase'].skew())
 
 
+# Plotting the histogram and KDE of 'Purchase' column to visually inspect skewness and distribution
+plt.figure(figsize=(16, 6))
+
+# Histogram plot
+plt.subplot(1, 3, 1)
+sb.histplot(bfriday_sales_train_df['Purchase'], kde=False, bins=30, color='purple')
+plt.title('Histogram of Purchase')
+plt.xlabel('Purchase')
+plt.ylabel('Frequency')
+
+# KDE (Kernel Density Estimate) Plot
+plt.subplot(1, 3, 2)
+sb.kdeplot(bfriday_sales_train_df['Purchase'], shade=True, color='orange')
+plt.title('KDE Plot of Purchase')
+plt.xlabel('Purchase')
+plt.ylabel('Density')
+
+plt.tight_layout()
+plt.show()
