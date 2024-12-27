@@ -252,7 +252,6 @@ print(bfriday_sales_train_df.groupby("Gender")["Purchase"].mean())
 # Exploratory Data Analysis(EDA)
 
 # Gender Distribution Analysis
-
 # Plot a bar graph for counts of Gender
 
 plt.figure(figsize=(6, 6))
@@ -280,7 +279,6 @@ plt.show()
 
 
 # Age Distribution Analysis
-
 # Plot number of transactions by age group
 age_group_data = bfriday_sales_train_df['Age'].value_counts().reset_index()
 age_group_data.columns = ['Age Group', 'Transaction Count']
@@ -315,3 +313,21 @@ plt.legend(fontsize=12)
 # Show the plot
 plt.tight_layout()
 plt.show()
+
+# Stay_In_Current_City_Years Analysis
+# Distribution of 'Stay_In_Current_City_Years'
+plt.figure(figsize=(10, 6))
+sb.countplot(x='Stay_In_Current_City_Years', data=bfriday_sales_train_df)
+plt.title('Transactions by Stay in Current City')
+plt.show()
+
+
+# Boxplot of 'Purchase' vs 'Stay_In_Current_City_Years'
+plt.figure(figsize=(10, 6))
+sb.boxplot(x='Stay_In_Current_City_Years', y='Purchase', data=bfriday_sales_train_df)
+plt.title('Purchase Distribution by Stay in Current City (Years)')
+plt.show()
+
+# Maritial status Analysis
+# Display a count plot for marital status in the dataset.
+print(sb.countplot(x='Marital_Status', data=bfriday_sales_train_df))
