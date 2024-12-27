@@ -184,3 +184,65 @@ plt.ylabel('Density')
 
 plt.tight_layout()
 plt.show()
+
+
+
+
+# Analyzing the data
+
+# Aggregate the 'Purchase' values by grouping the data on 'Product'
+top_products = bfriday_sales_train_df.groupby('Product_ID')['Purchase'].sum()
+
+# Arrange the products from highest to lowest based on total purchase amount
+top_products_sorted = top_products.sort_values(ascending=False)
+
+# Get the top 5 products
+top_5_products = top_products_sorted.head(5)
+
+# Display the top 5 products
+print("Top 5 Products based on total Purchase:")
+print(top_5_products)
+
+
+
+# Group by 'Occupation' and sum the 'Purchase' values
+top_occupations = bfriday_sales_train_df.groupby('Occupation')['Purchase'].sum()
+
+# Sort the occupations by total purchase amount in descending order
+top_occupations_sorted = top_occupations.sort_values(ascending=False)
+
+# Get the top 5 occupations
+top_5_occupations = top_occupations_sorted.head(5)
+
+# Display the top 5 occupations
+print("Top 5 Occupations based on total Purchase:")
+print(top_5_occupations)
+
+
+# Display top Cities
+print(bfriday_sales_train_df['City_Category'].value_counts().head())
+
+
+# display Gender counts
+print(bfriday_sales_train_df['Gender'].value_counts())
+
+
+# Print the gender unique values count by dividing all values by the sum of values
+print(bfriday_sales_train_df['Gender'].value_counts(normalize=True)*100)
+
+
+# Display the count of marital status of customers
+print(bfriday_sales_train_df['Marital_Status'].value_counts())
+
+
+# Married men made more purchases
+# Now, we'll check the highest and lowest purchase amounts for both men and women
+
+max_price = bfriday_sales_train_df['Purchase'].max() # max price 
+min_price = bfriday_sales_train_df['Purchase'].min() # min price
+print("Maximum price range of purchase in both the male & female catogries is: " ,(max_price))
+print("Minimum price range of purchase in both the male & female catogries is: " ,(min_price))
+
+
+# Display mean/average purchase values for overall Gender category
+print(bfriday_sales_train_df.groupby("Gender")["Purchase"].mean())
