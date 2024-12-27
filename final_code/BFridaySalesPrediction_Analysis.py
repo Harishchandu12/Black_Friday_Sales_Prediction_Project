@@ -246,3 +246,72 @@ print("Minimum price range of purchase in both the male & female catogries is: "
 
 # Display mean/average purchase values for overall Gender category
 print(bfriday_sales_train_df.groupby("Gender")["Purchase"].mean())
+
+
+
+# Exploratory Data Analysis(EDA)
+
+# Gender Distribution Analysis
+
+# Plot a bar graph for counts of Gender
+
+plt.figure(figsize=(6, 6))
+gender_counts = bfriday_sales_train_df['Gender'].value_counts()
+plt.bar(gender_counts.index, gender_counts.values, color=['purple', 'red'])
+plt.xlabel('Gender')
+plt.ylabel('Count')
+plt.title('Transactions by Gender')
+plt.show()
+
+# Show the percentage of each gender in the data.
+print(bfriday_sales_train_df['Gender'].value_counts(normalize=True)*100)
+
+# Set the plot size
+plt.figure(figsize=(8, 6))
+
+# Plot the barplot for Gender vs Purchase
+gender_purchase_plot = sb.barplot(data=bfriday_sales_train_df, x='Gender', y='Purchase' , palette='Blues')
+
+# Adjust the title of the plot
+gender_purchase_plot.set_title('Gender vs Purchase')
+
+# display the plot
+plt.show()
+
+
+# Age Distribution Analysis
+
+# Plot number of transactions by age group
+age_group_data = bfriday_sales_train_df['Age'].value_counts().reset_index()
+age_group_data.columns = ['Age Group', 'Transaction Count']
+
+plt.figure(figsize=(10, 6))
+sb.barplot(data=age_group_data, x='Age Group', y='Transaction Count', palette='Blues')
+plt.title('Transactions by Age Group')
+plt.xlabel('Age Group')
+plt.ylabel('Transaction Count')
+plt.show()
+
+# Group by Age and calculate the sum of Purchase
+age_purchase_sum = bfriday_sales_train_df.groupby("Age")["Purchase"].sum()
+
+# Plot the data as a line chart
+plt.figure(figsize=(10, 6))  # Set figure size
+plt.plot(age_purchase_sum.index, age_purchase_sum.values, marker="o", linestyle="-", color="blue", label="Total Purchase")
+
+# Add title and axis labels
+plt.title("Total Purchase Amount by Age", fontsize=16, fontweight="bold")
+plt.xlabel("Age", fontsize=14)
+plt.ylabel("Total Purchase Amount", fontsize=14)
+
+# Customize ticks
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+
+# Add grid and legend
+plt.grid(linestyle="--", alpha=0.7)
+plt.legend(fontsize=12)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
