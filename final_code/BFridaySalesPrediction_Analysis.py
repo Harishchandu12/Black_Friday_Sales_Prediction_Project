@@ -444,9 +444,49 @@ plt.ylabel('Average Purchase')
 plt.show()
 
 
-# display a barplot between average purchase and Product_Category_2'
+# display a barplot between average purchase and Product_Category_3'
 sb.boxplot(x='Product_Category_3', y='Purchase', data=bfriday_sales_train_df)
 plt.title('Average Purchase by Product Category')
 plt.xlabel('Product Category 3')
 plt.ylabel('Average Purchase')
+plt.show()
+
+
+# Correlation Analysis
+
+# Select only numeric columns
+numeric_cols = bfriday_sales_train_df.select_dtypes(include=[np.number])
+
+# Display the names of numeric columns
+print(numeric_cols.columns)
+
+# Select only categorical columns (columns with object data type)
+categorical_cols = bfriday_sales_train_df.select_dtypes(include=[object])
+
+# Display the names of categorical columns
+print(categorical_cols.columns)
+
+
+# Calculate the correlation matrix for the numeric columns
+get_correlation = numeric_cols.corr()
+
+# Display the correlation of 'Purchase' with other numerical columns, sorted in descending order
+print(get_correlation["Purchase"].sort_values(ascending=False), '\n')
+
+# Select only numeric columns from the DataFrame
+numeric_df = bfriday_sales_train_df.select_dtypes(include=['number'])
+
+# Plot the heatmap for correlation matrix
+plt.figure(figsize=(12, 12))
+
+# Create the heatmap using the numeric data
+sb.heatmap(numeric_df.corr(), 
+           annot=True,            # Annotate cells with numeric values
+           square=True,           # Make the heatmap square-shaped
+           cmap='viridis',        # Color map style
+           linewidths=0.5,        # Width of the lines separating cells
+           linecolor="white",     # Color of the lines separating cells
+           cbar_kws={'shrink': 0.8})  # Shrink color bar to fit
+
+# Show the plot
 plt.show()
