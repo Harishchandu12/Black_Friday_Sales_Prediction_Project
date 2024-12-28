@@ -490,3 +490,27 @@ sb.heatmap(numeric_df.corr(),
 
 # Show the plot
 plt.show()
+
+
+# Select columns of interest (numeric features)
+cols_of_interest = ['Purchase', 'Occupation', 'Marital_Status']
+
+# Plot pairplot 
+sb.pairplot(bfriday_sales_train_df[cols_of_interest], diag_kind='kde')
+plt.suptitle('Pairplot of Key Variables', y=1.02)  # Title with spacing adjustment
+plt.show()
+
+# Ensure the 'Stay_In_Current_City_Years' is a categorical variable if necessary
+bfriday_sales_train_df['Stay_In_Current_City_Years'] = bfriday_sales_train_df['Stay_In_Current_City_Years'].astype(str)
+
+# Create a FacetGrid and map the barplot
+year_trend = sb.FacetGrid(bfriday_sales_train_df, col="Stay_In_Current_City_Years", height=5, aspect=1)
+year_trend.map(sb.barplot, "Marital_Status", "Purchase", estimator='sum', palette="Blues")
+
+# Adjust title and labels for the plot
+year_trend.set_axis_labels("Marital Status", "Total Purchase Amount")
+year_trend.set_titles("Stay In Current City Years: {col_name}")
+
+# Show the plot
+plt.tight_layout()
+plt.show()
