@@ -514,3 +514,36 @@ year_trend.set_titles("Stay In Current City Years: {col_name}")
 # Show the plot
 plt.tight_layout()
 plt.show()
+
+
+
+#  Data Cleaning
+
+# Fill NaN values with 0 in the entire DataFrame
+bfriday_sales_train_df = bfriday_sales_train_df.fillna(0)
+
+
+# checking missing values in each column in a dataset
+print(bfriday_sales_train_df.isnull().sum())
+
+
+# Print the data before the data cleaning
+print(bfriday_sales_train_df.head(10))
+
+
+# Handling special characters in 'Age' and 'Stay_In_Current_City_Years' columns
+
+# Remove the '+' character from 'Age'
+bfriday_sales_train_df['Age'] = bfriday_sales_train_df['Age'].str.replace('+', '', regex=False)
+
+# Remove the '+' character from 'Stay_In_Current_City_Years' and convert to float
+bfriday_sales_train_df['Stay_In_Current_City_Years'] = (
+    bfriday_sales_train_df['Stay_In_Current_City_Years']
+    .str.replace('+', '', regex=False)
+    .astype(float)
+)
+
+
+# verify initial data
+print(bfriday_sales_train_df.head(5))
+
