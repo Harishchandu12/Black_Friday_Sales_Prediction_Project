@@ -408,3 +408,45 @@ plt.title('Average Purchase by Occupation')
 plt.xlabel('Occupation')
 plt.ylabel('Average Purchase')
 plt.show()
+
+
+#  Relationship between target variable and others
+
+# Display a boxplot comparing purchase amounts by gender
+print(sb.boxplot(x='Gender', y='Purchase', data=bfriday_sales_train_df))
+plt.show()
+
+# Display a boxplot comparing purchase amounts by gender
+print(sb.boxplot(x='Age', y='Purchase', data=bfriday_sales_train_df))
+plt.show()
+
+# Display a boxplot comparing purchase amounts by gender
+print(sb.boxplot(x='City_Category', y='Purchase', data=bfriday_sales_train_df))
+plt.show()
+
+# purchase trends for different product categories
+
+# verify the inital data
+bfriday_sales_train_df.head()
+
+#  display a barplot between average purchase and Product_Category_1'
+sb.barplot(x='Product_Category_1', y='Purchase', data=bfriday_sales_train_df, estimator='mean', ci='sd')
+plt.title('Average Purchase by Product Category')
+plt.xlabel('Product Category 1')
+plt.ylabel('Average Purchase')
+plt.show()
+
+# display a barplot between average purchase and Product_Category_2'
+sb.pointplot(x='Product_Category_2', y='Purchase', data=bfriday_sales_train_df, estimator='mean', ci='sd')
+plt.title('Point Plot of Purchase by Product Category')
+plt.xlabel('Product Category 2')
+plt.ylabel('Average Purchase')
+plt.show()
+
+
+# display a barplot between average purchase and Product_Category_2'
+sb.boxplot(x='Product_Category_3', y='Purchase', data=bfriday_sales_train_df)
+plt.title('Average Purchase by Product Category')
+plt.xlabel('Product Category 3')
+plt.ylabel('Average Purchase')
+plt.show()
