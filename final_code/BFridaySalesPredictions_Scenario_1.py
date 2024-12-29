@@ -152,3 +152,56 @@ print("Non-numeric rows:\n", non_numeric_rows)
 
 # It gives information about the trained dataframe
 print(bfriday_sales_train_df.info())
+
+#from sklearn.preprocessing import LabelEncoder
+
+# 1. Encode 'Gender' as numeric: 'M' -> 1, 'F' -> 0
+X_train['Gender'] = X_train['Gender'].map({'M': 1, 'F': 0})
+X_test['Gender'] = X_test['Gender'].map({'M': 1, 'F': 0})
+
+# 2. Encode 'City_Category' as numeric: 'A' -> 0, 'B' -> 1, 'C' -> 2
+X_train['City_Category'] = X_train['City_Category'].map({'A': 0, 'B': 1, 'C': 2})
+X_test['City_Category'] = X_test['City_Category'].map({'A': 0, 'B': 1, 'C': 2})
+
+# Now apply the StandardScaler to the numeric data
+from sklearn.preprocessing import StandardScaler
+
+sc = StandardScaler()
+X_train_scaled = sc.fit_transform(X_train)
+X_test_scaled = sc.transform(X_test)
+
+# Convert the scaled data back to DataFrame format
+X_train = pd.DataFrame(X_train_scaled, columns=X_train.columns)
+X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns)
+
+# Verify the result
+print("Scaled X_train after encoding and scaling:\n", X_train.head())
+print("Scaled X_test after encoding and scaling:\n", X_test.head())
+
+# Check for any NaN values in the dataset after encoding and before scaling
+print("NaN values in X_train after encoding:", X_train.isna().sum())
+print("NaN values in X_test after encoding:", X_test.isna().sum())
+
+# Fill any remaining NaN values in X_train and X_test (if any)
+X_train = X_train.fillna(0)  # we can fill with 0 
+X_test = X_test.fillna(0)
+
+# Verify that there are no NaN values remaining
+print("NaN values in X_train after filling:", X_train.isna().sum())
+print("NaN values in X_test after filling:", X_test.isna().sum())
+
+# Now apply StandardScaler to the data again
+sc = StandardScaler()
+X_train_scaled = sc.fit_transform(X_train)
+X_test_scaled = sc.transform(X_test)
+
+# Convert the scaled data back to DataFrame format
+X_train = pd.DataFrame(X_train_scaled, columns=X_train.columns)
+X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns)
+
+# Verify the result
+print("Scaled X_train after encoding and scaling:\n", X_train.head())
+print("Scaled X_test after encoding and scaling:\n", X_test.head())
+
+# verify the intial data
+bfriday_sales_train_df.head()
