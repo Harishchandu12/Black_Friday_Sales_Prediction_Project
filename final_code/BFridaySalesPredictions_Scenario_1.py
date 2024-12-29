@@ -101,3 +101,54 @@ fill_missing_and_convert_to_int(bfriday_sales_train_df, 'Product_Category_3')
 print(bfriday_sales_train_df.info())
 
 
+# Convert the Product_Category_2 and Product_Category_3 data types to int64
+bfriday_sales_train_df['Product_Category_2'] =bfriday_sales_train_df['Product_Category_2'].astype('int64')
+bfriday_sales_train_df['Product_Category_3'] =bfriday_sales_train_df['Product_Category_3'].astype('int64')
+print(bfriday_sales_train_df.info())
+
+
+# Fill missing values in the DataFrame with the mean of each column to handle NaN values
+df_filled = bfriday_sales_train_df.fillna(bfriday_sales_train_df.mean())
+
+# Checking the null values in each column
+print(bfriday_sales_train_df.isnull().sum())
+
+# verify the initial data
+print(bfriday_sales_train_df.head())
+
+# Observing the complete information about the dataframe
+print(bfriday_sales_train_df.info())
+
+#  Data Split
+
+# Dividing the dataset into train & test 
+from sklearn.model_selection import train_test_split
+
+# Split the DataFrame into features (X) and target (y), using 'Purchase' as the target
+X = bfriday_sales_train_df.drop('Purchase', axis=1)
+y = bfriday_sales_train_df['Purchase']
+
+# Assuming X and y are already defined with features and target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=40)
+
+# Split the DataFrame into features (X1) and target (y1), using 'Purchase' as the target
+X1 = bfriday_sales_train_df.drop('Purchase', axis=1)
+y1 = bfriday_sales_train_df['Purchase']
+
+# splitting the data into 70% - 30%
+X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, test_size=0.3, random_state=40)
+
+
+# Feature Scaling
+
+# Check for any non-numeric columns (should raise an issue if any non-numeric data exists)
+print(X_train.apply(pd.to_numeric, errors='coerce').isna().sum())  # This will show columns with conversion issues
+
+
+# Check for non-numeric entries by attempting to convert each value to numeric
+# 'errors="coerce"' will turn non-numeric values into NaN
+non_numeric_rows = X_train[~X_train.apply(pd.to_numeric, errors='coerce').notna().all(axis=1)]
+print("Non-numeric rows:\n", non_numeric_rows)
+
+# It gives information about the trained dataframe
+print(bfriday_sales_train_df.info())
