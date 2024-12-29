@@ -298,3 +298,28 @@ metrics_70 = evaluate_model(y1_test, predictions_70)
 # Display the metrics
 print("Metrics for 70-30 Split:")
 print(metrics_70)
+
+#Calculate the residuals for both splits
+residuals_80 = y_test - predictions
+residuals_70 = y1_test - predictions_70
+
+# Create side-by-side histograms to compare the residuals of both splits
+plt.figure(figsize=(14, 6))
+
+# Plot for 80-20 Split
+plt.subplot(1, 2, 1)
+sb.histplot(residuals_80, kde=True, color='blue', bins=30)
+plt.title("Residuals (80-20 Split)")
+plt.xlabel("Residuals")
+plt.ylabel("Frequency")
+
+# Plot for 70-30 Split
+plt.subplot(1, 2, 2)
+sb.histplot(residuals_70, kde=True, color='orange', bins=30)
+plt.title("Residuals (70-30 Split)")
+plt.xlabel("Residuals")
+plt.ylabel("Frequency")
+
+# Adjust layout and display the plots
+plt.tight_layout()
+plt.show()
