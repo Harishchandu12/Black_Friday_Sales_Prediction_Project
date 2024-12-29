@@ -68,3 +68,36 @@ bfriday_sales_train_df['Stay_In_Current_City_Years'] = (
 # verify the initial data
 print(bfriday_sales_train_df.head())
 
+
+
+# To check existing null values in the columns
+print(bfriday_sales_train_df.isnull().sum())
+
+
+# Transform the categorical columns into numeric values using LabelEncoder, making the data suitable for analysis and machine learning models
+# List of columns to encode
+columns_to_encode = ['Gender', 'Age', 'City_Category']
+
+# Create a LabelEncoder object
+cencoder = LabelEncoder()
+
+# Apply label encoding to each column in the list
+for column in columns_to_encode:
+    bfriday_sales_train_df[column] = cencoder.fit_transform(bfriday_sales_train_df[column])
+
+# verify the initial data of the transformed DataFrame
+print(bfriday_sales_train_df.head())
+
+
+# Function to fill missing values with mean and convert to integer
+def fill_missing_and_convert_to_int(df, column_name):
+    df[column_name] = df[column_name].fillna(df[column_name].mean()).astype('int64')
+
+# Apply the function to the desired columns
+fill_missing_and_convert_to_int(bfriday_sales_train_df, 'Product_Category_2')
+fill_missing_and_convert_to_int(bfriday_sales_train_df, 'Product_Category_3')
+
+# Verify the changes
+print(bfriday_sales_train_df.info())
+
+
