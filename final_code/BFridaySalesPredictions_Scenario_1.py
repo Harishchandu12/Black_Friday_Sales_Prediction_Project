@@ -444,3 +444,61 @@ plt.ylabel("Frequency")
 plt.tight_layout()
 plt.show()
 
+
+
+# XGBoost Regressor
+
+# 80-20
+
+#from xgboost import XGBRegressor
+
+
+# Define a function to train the XGBoost Regressor
+def train_xgboost_regressor(X_train, y_train):
+    model = XGBRegressor(random_state=40)  # Initialize the model
+    model.fit(X_train, y_train)  # Train the model
+    return model
+
+
+#Train the model and make predictions
+# 80-20 split
+xgb_model_80 = train_xgboost_regressor(X_train, y_train)
+predictions_80 = make_predictions(xgb_model_80, X_test)
+
+
+# Scatter plot of actual vs predicted values
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, predictions_80, color='lavender', alpha=0.6)
+
+# Plot the line of perfect prediction (y = x)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', linestyle='--', label='Perfect Prediction')
+
+plt.xlabel('Actual purchases')
+plt.ylabel('Predicted purchases')
+plt.title('Actual vs Predicted Purchases - XGBoost Regressor(80-20 split)')
+plt.legend()
+plt.show()
+
+
+# Import the necessary metrics
+#from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# Define a function to evaluate the model
+def evaluate_model(y_test, predictions_80):
+    mae = mean_absolute_error(y_test, predictions_80)
+    rmse = mean_squared_error(y_test, predictions_80, squared=False)
+    r2 = r2_score(y_test, predictions_80)
+    
+    # Return a dictionary with evaluation metrics
+    return {
+        "Mean Absolute Error (MAE)": mae,
+        "Root Mean Squared Error (RMSE)": rmse,
+        "R-squared (R²)": r2
+    }
+
+# Evaluate the model's performance
+metrics = evaluate_model(y_test, predictions_80)
+
+# Display the metrics
+print(metrics)
+
