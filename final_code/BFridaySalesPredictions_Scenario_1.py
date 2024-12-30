@@ -381,3 +381,32 @@ metrics = evaluate_model(y_test, predictions_80)
 
 # Display the metrics
 print(metrics)
+
+
+# 70-30
+
+# Train the model for 70-30 split
+rf_model_70 = train_random_forest(X1_train, y1_train)
+
+# Make predictions for 70-30 split
+predictions_70 = make_predictions(rf_model_70, X1_test)
+
+# Scatter plot of actual vs predicted values
+plt.figure(figsize=(10, 6))
+plt.scatter(y1_test, predictions_70, color='lightpink', alpha=0.6)
+
+# Plot the line of perfect prediction (y = x)
+plt.plot([y1_test.min(), y1_test.max()], [y1_test.min(), y1_test.max()], color='red', linestyle='--', label='Perfect Prediction')
+
+plt.xlabel('Actual purchases')
+plt.ylabel('Predicted purchases')
+plt.title('Actual vs Predicted purchases - Random Forest Regressor(70-30 split)')
+plt.legend()
+plt.show()
+
+# Evaluate the model's performance for 70-30 split
+metrics_70 = evaluate_model(y1_test, predictions_70)
+
+# Display the metrics
+print("Metrics for 70-30 Split:")
+print(metrics_70)
