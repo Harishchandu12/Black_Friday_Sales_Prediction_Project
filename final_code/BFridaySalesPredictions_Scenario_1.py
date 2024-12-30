@@ -618,3 +618,114 @@ metric_names = ['Mean Absolute Error (MAE)', 'Root Mean Squared Error (RMSE)', '
 
 # Call the function to plot comparison
 plot_metrics_comparison(models, metrics_80, metrics_70, metric_names)
+
+
+
+# Hyperparameter tuning
+
+#from sklearn.model_selection import train_test_split, RandomizedSearchCV
+#from sklearn.linear_model import LinearRegression
+#from sklearn.ensemble import RandomForestRegressor
+#import xgboost as xgb
+#from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# Linear Regression - we can’t tune standard linear regression because it has no settings to adjust.
+
+
+# Random Forest and XGBoost
+
+#from sklearn.model_selection import RandomizedSearchCV
+#from sklearn.ensemble import RandomForestRegressor
+#import xgboost as xgb
+
+# Define RandomForest model
+rf_model = RandomForestRegressor(random_state=40, n_estimators=100)
+
+# Define the XGBoost model
+xgb_model = XGBRegressor(random_state=40)
+
+# Reduced hyperparameter grid
+param_dist_rf = {
+    "n_estimators": [50, 100],
+    "max_depth": [10, None],
+    "min_samples_split": [2, 5],
+}
+
+param_dist_xgb = {
+    "n_estimators": [50, 100],
+    "max_depth": [3, 6],
+    "learning_rate": [0.1, 0.3],
+}
+
+# RandomizedSearchCV for RandomForest with parallel processing
+random_search_rf = RandomizedSearchCV(
+    rf_model, 
+    param_distributions=param_dist_rf, 
+    n_iter=1,  # Use 1 iteration for faster testing
+    cv=2, 
+    scoring="neg_mean_absolute_error", 
+    random_state=40,
+    n_jobs=-1  # Parallelize across available CPU cores
+)
+
+# RandomizedSearchCV for XGBoost with parallel processing
+random_search_xgb = RandomizedSearchCV(
+    xgb_model, 
+    param_distributions=param_dist_xgb, 
+    n_iter=1,  # Use 1 iteration for faster testing
+    cv=2, 
+    scoring="neg_mean_absolute_error", 
+    random_state=40,
+    n_jobs=-1  # Parallelize across available CPU cores
+)
+
+# Function to perform RandomizedSearchCV and model evaluation
+def tune_and_evaluate(model, param_dist, X_train, y_train, X_test, y_test):
+    random_search = RandomizedSearchCV(
+        model, 
+        param_distributions=param_dist, 
+        n_iter=1, 
+        cv=2, 
+        scoring="neg_mean_absolute_error", 
+        random_state=40,
+        n_jobs=-1
+    )
+    random_search.fit(X_train, y_train)
+    
+    best_model = random_search.best_estimator_
+    best_params = random_search.best_params_
+    y_pred = best_model.predict(X_test)
+    
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = mean_squared_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+    
+    return best_model, best_params, mae, rmse, r2
+
+# Example evaluation (with 1 iteration for faster testing)
+results_80_rf = tune_and_evaluate(rf_model, param_dist_rf, X_train, y_train, X_test, y_test)
+results_70_rf = tune_and_evaluate(rf_model, param_dist_rf, X1_train, y1_train, X1_test, y1_test)
+
+results_80_xgb = tune_and_evaluate(xgb_model, param_dist_xgb, X_train, y_train, X_test, y_test)
+results_70_xgb = tune_and_evaluate(xgb_model, param_dist_xgb, X1_train, y1_train, X1_test, y1_test)
+
+
+#from IPython.display import display
+
+# Results for 80-20 and 70-30 splits
+results = {
+    "Model": ["Random Forest (80-20)", "XGBoost (80-20)", 
+              "Random Forest (70-30)", "XGBoost (70-30)"],
+    "MAE (80-20)": [results_80_rf[2], results_80_xgb[2], results_70_rf[2], results_70_xgb[2]],
+    "RMSE (80-20)": [results_80_rf[3], results_80_xgb[3], results_70_rf[3], results_70_xgb[3]],
+    "R2 (80-20)": [results_80_rf[4], results_80_xgb[4], results_70_rf[4], results_70_xgb[4]],
+    "MAE (70-30)": [results_80_rf[2], results_80_xgb[2], results_70_rf[2], results_70_xgb[2]],
+    "RMSE (70-30)": [results_80_rf[3], results_80_xgb[3], results_70_rf[3], results_70_xgb[3]],
+    "R2 (70-30)": [results_80_rf[4], results_80_xgb[4], results_70_rf[4], results_70_xgb[4]]
+}
+
+# Create the DataFrame
+results_df = pd.DataFrame(results)
+
+# Display the DataFrame
+display(results_df)
