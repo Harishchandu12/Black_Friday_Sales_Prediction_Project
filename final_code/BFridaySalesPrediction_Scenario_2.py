@@ -139,3 +139,72 @@ y1 = bfriday_sales_train_df['Purchase']
 # splitting the data into 70% - 30%
 X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, test_size=0.3, random_state=42)
 
+
+# Feature Scaling
+
+# Check for any non-numeric columns (should raise an issue if any non-numeric data exists)
+print(X_train.apply(pd.to_numeric, errors='coerce').isna().sum())  # This will show columns with conversion issues
+
+
+# Check for non-numeric entries by attempting to convert each value to numeric
+# 'errors="coerce"' will turn non-numeric values into NaN
+non_numeric_rows = X_train[~X_train.apply(pd.to_numeric, errors='coerce').notna().all(axis=1)]
+print("Non-numeric rows:\n", non_numeric_rows)
+
+#It wll gives the complete information about dataframe
+bfriday_sales_train_df.info()
+
+
+#from sklearn.preprocessing import LabelEncoder
+
+# 1. Encode 'Gender' as numeric: 'M' -> 1, 'F' -> 0
+X_train['Gender'] = X_train['Gender'].map({'M': 1, 'F': 0})
+X_test['Gender'] = X_test['Gender'].map({'M': 1, 'F': 0})
+
+# 2. Encode 'City_Category' as numeric: 'A' -> 0, 'B' -> 1, 'C' -> 2
+X_train['City_Category'] = X_train['City_Category'].map({'A': 0, 'B': 1, 'C': 2})
+X_test['City_Category'] = X_test['City_Category'].map({'A': 0, 'B': 1, 'C': 2})
+
+# Now apply the StandardScaler to the numeric data
+#from sklearn.preprocessing import StandardScaler
+
+sc = StandardScaler()
+X_train_scaled = sc.fit_transform(X_train)
+X_test_scaled = sc.transform(X_test)
+
+# Convert the scaled data back to DataFrame format
+X_train = pd.DataFrame(X_train_scaled, columns=X_train.columns)
+X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns)
+
+# Verify the result
+print("Scaled X_train after encoding and scaling:\n", X_train.head())
+print("Scaled X_test after encoding and scaling:\n", X_test.head())
+
+# Check for any NaN values in the dataset after encoding and before scaling
+print("NaN values in X_train after encoding:", X_train.isna().sum())
+print("NaN values in X_test after encoding:", X_test.isna().sum())
+
+# Fill any remaining NaN values in X_train and X_test (if any)
+X_train = X_train.fillna(0)  # You can fill with 0 or any appropriate value
+X_test = X_test.fillna(0)
+
+# Verify that there are no NaN values remaining
+print("NaN values in X_train after filling:", X_train.isna().sum())
+print("NaN values in X_test after filling:", X_test.isna().sum())
+
+# Now apply StandardScaler to the data again
+sc = StandardScaler()
+X_train_scaled = sc.fit_transform(X_train)
+X_test_scaled = sc.transform(X_test)
+
+# Convert the scaled data back to DataFrame format
+X_train = pd.DataFrame(X_train_scaled, columns=X_train.columns)
+X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns)
+
+# Verify the result
+print("Scaled X_train after encoding and scaling:\n", X_train.head())
+print("Scaled X_test after encoding and scaling:\n", X_test.head())
+
+#verify the initial data
+bfriday_sales_train_df.head()
+
