@@ -119,3 +119,23 @@ print(bfriday_sales_train_df.head())
 # Observing the complete information about the dataframe
 print(bfriday_sales_train_df.info())
 
+
+#  Data Split
+
+# Dividing the dataset into train & test 
+#from sklearn.model_selection import train_test_split
+
+# Split the DataFrame into features (X) and target (y), using 'Purchase' as the target
+X = bfriday_sales_train_df.drop(columns=['Purchase', 'Product_Category_3'], axis=1) # dropping Product_Category_3
+y = bfriday_sales_train_df['Purchase']
+
+# Assuming X and y are already defined with features and target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Split the DataFrame into features (X1) and target (y1), using 'Purchase' as the target
+X1 = bfriday_sales_train_df.drop(columns=['Purchase', 'Product_Category_3'], axis=1)
+y1 = bfriday_sales_train_df['Purchase']
+
+# splitting the data into 70% - 30%
+X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, test_size=0.3, random_state=42)
+
