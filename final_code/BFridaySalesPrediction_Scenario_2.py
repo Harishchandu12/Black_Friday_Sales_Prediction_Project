@@ -208,3 +208,82 @@ print("Scaled X_test after encoding and scaling:\n", X_test.head())
 #verify the initial data
 bfriday_sales_train_df.head()
 
+
+# Model Training and Evalutaion
+
+# Linear Regression(80-20)
+
+# Import necessary libraries
+#from sklearn.linear_model import LinearRegression
+
+# Define a function to initialize and train the Linear Regression model
+def train_linear_regression(X_train, y_train):
+    model = LinearRegression()  # Initialize the model
+    model.fit(X_train, y_train)  # Train the model
+    return model
+
+# Train the model using the training data
+linear_reg_model = train_linear_regression(X_train, y_train)
+
+# Define a function to make predictions
+def make_predictions(model, X_test):
+    return model.predict(X_test)
+
+# Make predictions using the trained model
+predictions = make_predictions(linear_reg_model, X_test)
+
+# Bar Plot for Actual vs Predicted Purchases with numeric labels
+def plot_actual_vs_predicted_bar_numeric(y_test, predictions, num_samples=20):
+    # Convert to NumPy arrays for slicing
+    y_test = np.array(y_test)
+    predictions = np.array(predictions)
+    
+    # Select a subset of data for better visualization
+    indices = np.arange(len(y_test))[:num_samples]
+    actual = y_test[indices]
+    predicted = predictions[indices]
+    
+    # Bar positions
+    bar_width = 0.35
+    positions_actual = np.arange(len(actual))
+    positions_predicted = positions_actual + bar_width
+
+    # Plot bars
+    plt.figure(figsize=(12, 6))
+    plt.bar(positions_actual, actual, width=bar_width, label='Actual Purchases', alpha=0.7)
+    plt.bar(positions_predicted, predicted, width=bar_width, label='Predicted Purchases', alpha=0.7)
+
+    # Add labels, title, and legend
+    plt.xlabel(' Test data Samples')
+    plt.ylabel('Purchases')
+    plt.title('Actual vs Predicted Purchases - Linear Regression(80-20 Split))')
+    plt.xticks(positions_actual + bar_width / 2, indices, rotation=45)  # Numeric labels 0, 1, 2...
+    plt.legend()
+    plt.show()
+
+# Call the function
+plot_actual_vs_predicted_bar_numeric(y_test, predictions, num_samples=20)
+
+# Import the necessary metrics
+#from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# Define a function to evaluate the model
+def evaluate_model(y_test, y_pred):
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = mean_squared_error(y_test, y_pred, squared=False)
+    r2 = r2_score(y_test, y_pred)
+    
+    # Return a dictionary with evaluation metrics
+    return {
+        "Mean Absolute Error (MAE)": mae,
+        "Root Mean Squared Error (RMSE)": rmse,
+        "R-squared (R²)": r2
+    }
+
+# Evaluate the model's performance
+metrics = evaluate_model(y_test, predictions)
+
+# Display the metrics
+print(metrics)
+
+
