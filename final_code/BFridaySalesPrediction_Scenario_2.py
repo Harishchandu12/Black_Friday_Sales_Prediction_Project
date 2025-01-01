@@ -286,4 +286,49 @@ metrics = evaluate_model(y_test, predictions)
 # Display the metrics
 print(metrics)
 
+# 70-30
+# Train the model using the 70% training data
+linear_reg_model_70 = train_linear_regression(X1_train, y1_train)
+
+# Make predictions using the trained model
+predictions_70 = make_predictions(linear_reg_model_70, X1_test)
+
+# Bar Plot for Actual vs Predicted Purchases with numeric labels and custom bar colors (70-30 split)
+def plot_actual_vs_predicted_bar_numeric_70_30(y1_test, predictions_70, num_samples=20):
+    # Convert to NumPy arrays for slicing
+    y1_test = np.array(y1_test)
+    predictions_70 = np.array(predictions_70)
+    
+    # Select a subset of data for better visualization
+    indices = np.arange(len(y1_test))[:num_samples]
+    actual = y1_test[indices]
+    predicted = predictions_70[indices]
+    
+    # Bar positions
+    bar_width = 0.35
+    positions_actual = np.arange(len(actual))
+    positions_predicted = positions_actual + bar_width
+
+    # Plot bars with custom colors
+    plt.figure(figsize=(12, 6))
+    plt.bar(positions_actual, actual, width=bar_width, color='pink', label='Actual Purchases', alpha=0.8)
+    plt.bar(positions_predicted, predicted, width=bar_width, color='red', label='Predicted Purchases', alpha=0.8)
+
+    # Add labels, title, and legend
+    plt.xlabel('Test Data Samples')
+    plt.ylabel('Purchases')
+    plt.title('Actual vs Predicted Purchases -Linear Regression(70-30 Split)')
+    plt.xticks(positions_actual + bar_width / 2, indices, rotation=45)  # Numeric labels 0, 1, 2...
+    plt.legend()
+    plt.show()
+
+# Call the function
+plot_actual_vs_predicted_bar_numeric_70_30(y1_test, predictions_70, num_samples=20)
+
+# Evaluate the model's performance for 70-30 split
+metrics_70 = evaluate_model(y1_test, predictions_70)
+
+# Display the metrics
+print("Metrics for 70-30 Split:")
+print(metrics_70)
 
