@@ -332,3 +332,50 @@ metrics_70 = evaluate_model(y1_test, predictions_70)
 print("Metrics for 70-30 Split:")
 print(metrics_70)
 
+
+#from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# Function to compute metrics for a given split
+def calculate_metrics(y_test, predictions):
+    mae = mean_absolute_error(y_test, predictions)
+    rmse = mean_squared_error(y_test, predictions, squared=False)  # RMSE
+    r2 = r2_score(y_test, predictions)
+    return mae, rmse, r2
+
+# Assuming predictions_80_20 and predictions_70_30 are the predictions for respective splits
+mae_80_20, rmse_80_20, r2_80_20 = calculate_metrics(y_test, predictions)
+mae_70_30, rmse_70_30, r2_70_30 = calculate_metrics(y1_test, predictions_70)
+
+# Combine results into lists for plotting
+metrics_80_20 = [mae_80_20, rmse_80_20, r2_80_20]
+metrics_70_30 = [mae_70_30, rmse_70_30, r2_70_30]
+
+# Define labels and x positions
+x_labels = ['MAE', 'RMSE', 'R^2']
+x = np.arange(len(x_labels))  # Numeric positions for the metrics
+
+# Create subplots for side-by-side visualizations
+fig, axes = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
+
+# Plot 80-20 Split
+axes[0].plot(x, metrics_80_20, marker='o', label='80-20 Split', color='blue', linestyle='-', linewidth=2)
+axes[0].set_title('80-20 Split Metrics')
+axes[0].set_xlabel('Metrics')
+axes[0].set_ylabel('Values')
+axes[0].set_xticks(x)
+axes[0].set_xticklabels(x_labels)
+axes[0].grid(alpha=0.3)
+
+# Plot 70-30 Split
+axes[1].plot(x, metrics_70_30, marker='o', label='70-30 Split', color='orange', linestyle='--', linewidth=2)
+axes[1].set_title('70-30 Split Metrics')
+axes[1].set_xlabel('Metrics')
+axes[1].set_xticks(x)
+axes[1].set_xticklabels(x_labels)
+axes[1].grid(alpha=0.3)
+
+# Adjust layout and show plot
+plt.suptitle('Comparison of Evaluation Metrics for 80-20 and 70-30 Splits')
+plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
+plt.show()
+
