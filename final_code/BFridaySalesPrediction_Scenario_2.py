@@ -379,3 +379,73 @@ plt.suptitle('Comparison of Evaluation Metrics for 80-20 and 70-30 Splits')
 plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
 plt.show()
 
+
+# Random Forest regressor( 80-20)
+
+#from sklearn.ensemble import RandomForestRegressor
+# Define a function to train the Random Forest Regressor model
+def train_random_forest(X_train, y_train):
+    rf_model = RandomForestRegressor(random_state=30, n_estimators=200)  # Initialize the model
+    rf_model.fit(X_train, y_train)  # Train the model
+    return rf_model
+
+# Train the model for 80-20 split
+rf_model_80 = train_random_forest(X_train, y_train)
+
+# Make predictions for 80-20 split
+predictions_80 = make_predictions(rf_model_80, X_test)
+
+# Bar Plot for Actual vs Predicted Purchases
+def plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20):
+    # Convert to NumPy arrays for slicing
+    y_test = np.array(y_test)
+    predictions_80 = np.array(predictions_80)
+    
+    # Select a subset of data for better visualization
+    indices = np.arange(len(y_test))[:num_samples]
+    actual = y_test[indices]
+    predicted = predictions_80[indices]
+    
+    # Bar positions
+    bar_width = 0.35
+    positions_actual = np.arange(len(actual))
+    positions_predicted = positions_actual + bar_width
+
+    # Plot bars
+    plt.figure(figsize=(12, 6))
+    plt.bar(positions_actual, actual, width=bar_width, label='Actual Values', color='grey', alpha=0.8)
+    plt.bar(positions_predicted, predicted, width=bar_width, label='Predicted Values', color='purple', alpha=0.8)
+
+    # Add labels, title, and legend
+    plt.xlabel('Test data Samples ')
+    plt.ylabel('Purchase Values')
+    plt.title('Actual vs Predicted Purchases - Random Forest Regressor(80-20 Split)')
+    plt.xticks(positions_actual + bar_width / 2, indices, rotation=45)
+    plt.legend()
+    plt.show()
+
+# Call the function for the Random Forest predictions
+plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20)
+
+# Import the necessary metrics
+#from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# Define a function to evaluate the model
+def evaluate_model(y_test, predictions_80):
+    mae = mean_absolute_error(y_test, predictions_80)
+    rmse = mean_squared_error(y_test, predictions_80, squared=False)
+    r2 = r2_score(y_test, predictions_80)
+    
+    # Return a dictionary with evaluation metrics
+    return {
+        "Mean Absolute Error (MAE)": mae,
+        "Root Mean Squared Error (RMSE)": rmse,
+        "R-squared (R²)": r2
+    }
+
+# Evaluate the model's performance
+metrics = evaluate_model(y_test, predictions_80)
+
+# Display the metrics
+print(metrics)
+
