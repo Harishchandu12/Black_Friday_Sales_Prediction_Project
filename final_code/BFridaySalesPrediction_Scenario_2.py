@@ -661,3 +661,109 @@ print("Metrics for 70-30 Split:")
 print(metrics_70)
 
 
+#from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# Function to compute metrics for a given split
+def calculate_metrics(y_test, predictions):
+    mae = mean_absolute_error(y_test, predictions)
+    rmse = mean_squared_error(y_test, predictions, squared=False)  # RMSE
+    r2 = r2_score(y_test, predictions)
+    return mae, rmse, r2
+
+# Assuming predictions_80_20 and predictions_70_30 are the predictions for respective splits
+mae_80_20, rmse_80_20, r2_80_20 = calculate_metrics(y_test, predictions)
+mae_70_30, rmse_70_30, r2_70_30 = calculate_metrics(y1_test, predictions_70)
+
+# Combine results into lists for plotting
+metrics_80_20 = [mae_80_20, rmse_80_20, r2_80_20]
+metrics_70_30 = [mae_70_30, rmse_70_30, r2_70_30]
+
+# Define labels and x positions
+x_labels = ['MAE', 'RMSE', 'R^2']
+x = np.arange(len(x_labels))  # Numeric positions for the metrics
+
+# Create subplots for side-by-side visualizations
+fig, axes = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
+
+# Plot 80-20 Split
+axes[0].plot(x, metrics_80_20, marker='o', label='80-20 Split', color='brown', linestyle='-', linewidth=2)
+axes[0].set_title('80-20 Split Metrics')
+axes[0].set_xlabel('Metrics')
+axes[0].set_ylabel('Values')
+axes[0].set_xticks(x)
+axes[0].set_xticklabels(x_labels)
+axes[0].grid(alpha=0.3)
+
+# Plot 70-30 Split
+axes[1].plot(x, metrics_70_30, marker='o', label='70-30 Split', color='teal', linestyle='--', linewidth=2)
+axes[1].set_title('70-30 Split Metrics')
+axes[1].set_xlabel('Metrics')
+axes[1].set_xticks(x)
+axes[1].set_xticklabels(x_labels)
+axes[1].grid(alpha=0.3)
+
+# Adjust layout and show plot
+plt.suptitle('Comparison of Evaluation Metrics for 80-20 and 70-30 Splits')
+plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
+plt.show()
+
+
+
+# Performance Metrics Comparison of Regression Models (80-20 vs 70-30 Splits)
+
+# Define models and metrics for both splits
+models = ['Linear Regression', 'Random Forest', 'XGBoost']
+
+# Metrics for 80-20 split
+mae_80 = [3602.129818687039, 2248.510346821977, 2248.510346821977]  # Mean Absolute Error
+rmse_80 = [4703.7248756890285, 3041.2425572696498, 3041.2425572696498]  # Root Mean Squared Error
+r2_80 = [0.11944323591270134, 0.6318916638970715, 0.6318916638970715]  # R² Score
+
+# Metrics for 70-30 split
+mae_70 = [3597.9620945825905, 2216.435901542471, 2188.8989553498386]  # Mean Absolute Error
+rmse_70 = [4701.822378495528, 3032.236002234281, 2930.438108715919]  # Root Mean Squared Error
+r2_70 = [0.12281198787587633, 0.6351736062611392, 0.6592582438402976]  # R² Score
+
+# Function to plot side-by-side metrics for both splits
+def plot_metrics_comparison(models, metrics_80, metrics_70, metric_names):
+    """
+    Function to plot side-by-side metrics for 80-20 and 70-30 splits.
+
+    Parameters:
+        models (list): List of model names.
+        metrics_80 (list of lists): Metrics for 80-20 split.
+        metrics_70 (list of lists): Metrics for 70-30 split.
+        metric_names (list): Names of the metrics (e.g., ['MAE', 'RMSE', 'R²']).
+    """
+    x = np.arange(len(models))  # Positions for the bars
+    width = 0.35  # Width of each bar
+
+    plt.figure(figsize=(22, 10))
+
+    for i, metric_name in enumerate(metric_names):
+        plt.subplot(1, 3, i + 1)  # Create subplots for each metric
+
+        # Bars for 80-20 and 70-30 splits
+        plt.bar(x - width/2, metrics_80[i], width, label='80-20 Split', color='brown')
+        plt.bar(x + width/2, metrics_70[i], width, label='70-30 Split', color='pink')
+
+        # Add labels and title
+        plt.xlabel('Models', fontsize=12)
+        plt.ylabel(metric_name, fontsize=12)
+        plt.title(f'Comparison of {metric_name}', fontsize=14)
+        plt.xticks(x, models, rotation=15, fontsize=10)
+        plt.legend(fontsize=10)
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # Adjust layout 
+    plt.tight_layout()
+    plt.show()
+
+# Prepare the metrics data for input into the function
+metrics_80 = [mae_80, rmse_80, r2_80]
+metrics_70 = [mae_70, rmse_70, r2_70]
+metric_names = ['Mean Absolute Error (MAE)', 'Root Mean Squared Error (RMSE)', 'R-squared (R²)']
+
+# Call the function to plot comparison
+plot_metrics_comparison(models, metrics_80, metrics_70, metric_names)
+
