@@ -612,3 +612,52 @@ metrics = evaluate_model(y_test, predictions_80)
 # Display the metrics
 print(metrics)
 
+# 70-30
+# Train the model for 70-30 split
+xgb_model_70 = train_xgboost_regressor(X1_train, y1_train)
+
+
+# Make predictions for 70-30 split
+predictions_70 = make_predictions(xgb_model_70, X1_test)
+
+
+# Bar Plot for Actual vs Predicted Purchases
+def plot_actual_vs_predicted_bar(y_test, predictions_70, num_samples=20):
+    # Convert to NumPy arrays for slicing
+    y_test = np.array(y_test)
+    predictions_70 = np.array(predictions_70)
+    
+    # Select a subset of data for better visualization
+    indices = np.arange(len(y_test))[:num_samples]
+    actual = y_test[indices]
+    predicted = predictions_70[indices]
+    
+    # Bar positions
+    bar_width = 0.35
+    positions_actual = np.arange(len(actual))
+    positions_predicted = positions_actual + bar_width
+
+    # Plot bars
+    plt.figure(figsize=(12, 6))
+    plt.bar(positions_actual, actual, width=bar_width, label='Actual Values', color='orange', alpha=0.8)
+    plt.bar(positions_predicted, predicted, width=bar_width, label='Predicted Values', color='Plum', alpha=0.8)
+
+    # Add labels, title, and legend
+    plt.xlabel('Test data Samples ')
+    plt.ylabel('Purchase Values')
+    plt.title('Actual vs Predicted Purchases - XGBoost Regressor(70-30 Split)')
+    plt.xticks(positions_actual + bar_width / 2, indices, rotation=45)
+    plt.legend()
+    plt.show()
+
+# Call the function for the Random Forest predictions
+plot_actual_vs_predicted_bar(y_test, predictions_70, num_samples=20)
+
+# Evaluate the model's performance for 70-30 split
+metrics_70 = evaluate_model(y1_test, predictions_70)
+
+# Display the metrics
+print("Metrics for 70-30 Split:")
+print(metrics_70)
+
+
