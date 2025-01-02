@@ -707,8 +707,6 @@ plt.suptitle('Comparison of Evaluation Metrics for 80-20 and 70-30 Splits')
 plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
 plt.show()
 
-
-
 # Performance Metrics Comparison of Regression Models (80-20 vs 70-30 Splits)
 
 # Define models and metrics for both splits
