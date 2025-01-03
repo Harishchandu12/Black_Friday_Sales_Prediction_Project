@@ -768,7 +768,6 @@ plot_metrics_comparison(models, metrics_80, metrics_70, metric_names)
 
 # Hyperparameter tuning
 
-
 #from sklearn.model_selection import train_test_split, RandomizedSearchCV
 #from sklearn.linear_model import LinearRegression
 #from sklearn.ensemble import RandomForestRegressor
@@ -855,3 +854,19 @@ results_80_xgb = tune_and_evaluate(xgb_model, param_dist_xgb, X_train, y_train, 
 results_70_xgb = tune_and_evaluate(xgb_model, param_dist_xgb, X1_train, y1_train, X1_test, y1_test)
 
 
+#from IPython.display import display
+
+# Results for 80-20 and 70-30 splits
+results = {
+    "Model": ["Random Forest (80-20)", "XGBoost (80-20)", 
+              "Random Forest (70-30)", "XGBoost (70-30)"],
+    "MAE (80-20)": [results_80_rf[2], results_80_xgb[2], results_70_rf[2], results_70_xgb[2]],
+    "RMSE (80-20)": [results_80_rf[3], results_80_xgb[3], results_70_rf[3], results_70_xgb[3]],
+    "R2 (80-20)": [results_80_rf[4], results_80_xgb[4], results_70_rf[4], results_70_xgb[4]],
+    "MAE (70-30)": [results_80_rf[2], results_80_xgb[2], results_70_rf[2], results_70_xgb[2]],
+    "RMSE (70-30)": [results_80_rf[3], results_80_xgb[3], results_70_rf[3], results_70_xgb[3]],
+    "R2 (70-30)": [results_80_rf[4], results_80_xgb[4], results_70_rf[4], results_70_xgb[4]]
+}
+
+# Create the DataFrame
+results_df = pd.DataFrame(results)
