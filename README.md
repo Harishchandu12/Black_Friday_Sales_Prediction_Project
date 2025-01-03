@@ -2,7 +2,7 @@
 
 A retail company seeks to understand customer purchasing patterns, specifically the purchase amounts across different product categories. The dataset provided includes a summary of purchases made by various customers over the past month for a selection of high-demand products. In addition to purchase amounts, the data includes customer demographics—such as age, gender, marital status, city type, and length of residence in the current city—and product details, including product ID and product category.
 
-This project uses the Black Friday dataset to build a prediction model, applying machine learning techniques like Linear Regression, Random Forest Regression and XG Boost Regression. The performance and accuracy of these methods are compared, with a focus on data pre-processing and visualization for optimal results.
+This project uses the Black Friday dataset to explore the key factors influencing Black Friday transactions, such as demographics (age, gender, marital status, residency) and build a prediction model, applying machine learning techniques like Linear Regression, Random Forest Regression and XG Boost Regression. The performance and accuracy of these methods are compared, with a focus on data pre-processing and visualization for optimal results.
 
 MAE, RMSE and R2  helps to measure the accuracy and errors.
 
@@ -10,6 +10,8 @@ MAE, RMSE and R2  helps to measure the accuracy and errors.
 # Project Structure
 
  **Abstract**: Overview of the project's goals, methods, and findings.
+
+ **Acknowledgement**: Expressing gratitude to individuals and organizations for their support throughout the project.
  
  **Introduction**: Background, problem scope, and research aims.
  
@@ -19,14 +21,25 @@ MAE, RMSE and R2  helps to measure the accuracy and errors.
  
  **Results and Conclusion**: Summary of experimental outcomes and insights.
  
- **Legal, Ethical, and Professional Issues**: Discussion on the responsible use of image data.
+ **Legal, Ethical, and Professional Issues**: Discussion on the responsible use of data.
  
  **References**: List of all sources and references used.
  
- **Appendices**: Code and additional supporting materials.
+ **Appendices**: Overall code of the project.
+
+ 
+#Dataset
 
 
-# How o Use
+#Models
+
+
+#Metrics 
+
+#Tools and Libraries
+
+
+# How to Use
 1. Clone the repository:
 
          https://github.com/Harishchandu12/Black_Friday_Sales_Prediction_Project.git
