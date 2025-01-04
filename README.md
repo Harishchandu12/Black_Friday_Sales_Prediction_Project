@@ -29,6 +29,7 @@ MAE, RMSE and R2  helps to measure the accuracy and errors.
 
  
 # Dataset
+
 This Project uses the Black Friday Dataset from Kaggle, which has 550,068 records and 12 features. It includes data on retail sales, covering customer details like Gender, Age, and Occupation, as well as product information and purchase amounts. The dataset is useful for understanding sales patterns and predicting future trends.
 
 
@@ -37,17 +38,27 @@ Models like Linear Regression, Random Forest Regression and XGBoost Regression h
 
 
 # Metrics 
+
 MAE shows the average prediction error, helping measure overall accuracy.
+
 RMSE emphasizes large errors, making it useful for high-value sales predictions.
+
 R² indicates how well the model explains sales variability and overall trends.
 
 # Tools and Libraries
+
 numpy
+
 pandas
+
 seaborn
+
 matplotlib
+
 scikit-learn
+
 xgboost
+
 ipython
 
 
