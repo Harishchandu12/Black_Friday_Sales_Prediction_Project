@@ -115,18 +115,6 @@ print(bfriday_sales_train_df['Stay_In_Current_City_Years'].value_counts())
 print(round((bfriday_sales_train_df['Stay_In_Current_City_Years'].value_counts(normalize = True).mul(100)), 2).astype(str) + ' %' ) # unique values of Age Stay_In_Current_City_Years
 
 
-# Display the duplicate values in each attribute/column
-duplicate_data= bfriday_sales_train_df[bfriday_sales_train_df.duplicated()]
-print(duplicate_data.count())
-
-
-# Display duplicate User_IDs
-Unique_User_IDs = len(set(bfriday_sales_train_df.User_ID))
-Total_User_IDs = bfriday_sales_train_df.shape[0]
-Dup_User_IDs = Total_User_IDs - Unique_User_IDs
-print("There are " + str(Dup_User_IDs) + " duplicate User_ID for " + str(Total_User_IDs) + " total number of transactions in the dataset")
-
-
 # 3. Outlier Analysis
 
 #Diplay 25% and 75% Quartile values
@@ -147,23 +135,13 @@ upper_lmt = Q3 + 1.5 *IQR
 print("Upper limit of outlier is: ",upper_lmt)
 print("Lower limit of outlier is: ",lower_lmt)
 
-
-# Display the outliers purchase max and min values
-outliers_df=bfriday_sales_train_df[(bfriday_sales_train_df.Purchase < lower_lmt)|(bfriday_sales_train_df.Purchase > upper_lmt)]
-print("number of outliers: ",outliers_df['Purchase'].count())
-print("max purcahse value from the outliers is: ",outliers_df['Purchase'].max())
-print("min purchase value from the outliers: ",outliers_df['Purchase'].min())
-
-
 # to show the outliers in the purchases using boxplot
 sb.boxplot(data=bfriday_sales_train_df, x="Purchase").set(title='Boxplot of Purchase')
-
 
 # 4. Skewness and Distribution Checks
 
 # Display the skew data from the dataset
 print(bfriday_sales_train_df['Purchase'].skew())
-
 
 # Plotting the histogram and KDE of 'Purchase' column to visually inspect skewness and distribution
 plt.figure(figsize=(16, 6))
@@ -184,9 +162,6 @@ plt.ylabel('Density')
 
 plt.tight_layout()
 plt.show()
-
-
-
 
 # Analyzing the data
 
@@ -218,36 +193,20 @@ top_5_occupations = top_occupations_sorted.head(5)
 print("Top 5 Occupations based on total Purchase:")
 print(top_5_occupations)
 
-
 # Display top Cities
 print(bfriday_sales_train_df['City_Category'].value_counts().head())
-
 
 # display Gender counts
 print(bfriday_sales_train_df['Gender'].value_counts())
 
-
 # Print the gender unique values count by dividing all values by the sum of values
 print(bfriday_sales_train_df['Gender'].value_counts(normalize=True)*100)
-
 
 # Display the count of marital status of customers
 print(bfriday_sales_train_df['Marital_Status'].value_counts())
 
-
-# Married men made more purchases
-# Now, we'll check the highest and lowest purchase amounts for both men and women
-
-max_price = bfriday_sales_train_df['Purchase'].max() # max price 
-min_price = bfriday_sales_train_df['Purchase'].min() # min price
-print("Maximum price range of purchase in both the male & female catogries is: " ,(max_price))
-print("Minimum price range of purchase in both the male & female catogries is: " ,(min_price))
-
-
 # Display mean/average purchase values for overall Gender category
 print(bfriday_sales_train_df.groupby("Gender")["Purchase"].mean())
-
-
 
 # Exploratory Data Analysis(EDA)
 
@@ -491,15 +450,6 @@ sb.heatmap(numeric_df.corr(),
 # Show the plot
 plt.show()
 
-
-# Select columns of interest (numeric features)
-cols_of_interest = ['Purchase', 'Occupation', 'Marital_Status']
-
-# Plot pairplot 
-sb.pairplot(bfriday_sales_train_df[cols_of_interest], diag_kind='kde')
-plt.suptitle('Pairplot of Key Variables', y=1.02)  # Title with spacing adjustment
-plt.show()
-
 # Ensure the 'Stay_In_Current_City_Years' is a categorical variable if necessary
 bfriday_sales_train_df['Stay_In_Current_City_Years'] = bfriday_sales_train_df['Stay_In_Current_City_Years'].astype(str)
 
@@ -515,17 +465,13 @@ year_trend.set_titles("Stay In Current City Years: {col_name}")
 plt.tight_layout()
 plt.show()
 
-
-
 #  Data Cleaning
 
 # Fill NaN values with 0 in the entire DataFrame
 bfriday_sales_train_df = bfriday_sales_train_df.fillna(0)
 
-
 # checking missing values in each column in a dataset
 print(bfriday_sales_train_df.isnull().sum())
-
 
 # Print the data before the data cleaning
 print(bfriday_sales_train_df.head(10))
