@@ -38,6 +38,7 @@ Models like Linear Regression, Random Forest Regression and XGBoost Regression h
 
 
 # Metrics 
+MAE, RMSE, and R² are key metrics for evaluating Black Friday sales prediction models
 
 MAE shows the average prediction error, helping measure overall accuracy.
 
