@@ -1,5 +1,5 @@
 #  Title: Black Friady Sales Prediction Using Machine Learning.
-
+# Pre-processing and EDA Analysis
 # import dependencies/libraries  
 
 import numpy as np  # Array Operations and Mathematical Operations
