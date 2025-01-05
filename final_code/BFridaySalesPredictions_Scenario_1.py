@@ -24,6 +24,7 @@ from IPython.display import display  # For displaying outputs
 current_directory = os.getcwd()
 print(f"Current Directory: {current_directory}")
 
+
 # Print each library version
 print(f"The numpy version is {np.__version__}.")
 print(f"The matplotlib version is {matplotlib.__version__}.")
