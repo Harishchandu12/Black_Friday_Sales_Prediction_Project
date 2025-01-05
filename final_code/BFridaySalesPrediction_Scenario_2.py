@@ -4,7 +4,6 @@
 
 
 # import dependencies/libraries  
-
 import numpy as np  # Array Operations and Mathematical Operations
 import pandas as pd  # Analyzing and manipulating the data, especially for DataFrames
 import seaborn as sb  # to visualize random distributions/statistical graphics
@@ -22,9 +21,13 @@ from sklearn.model_selection import train_test_split, RandomizedSearchCV  # Spli
 import xgboost as xgb  # Additional functionality for XGBoost
 from IPython.display import display  # For displaying outputs
 
+
+
 # Get the current directory path
 current_directory = os.getcwd()
 print(f"Current Directory: {current_directory}")
+
+
 
 # Print each library version
 print(f"The numpy version is {np.__version__}.")
@@ -32,6 +35,7 @@ print(f"The matplotlib version is {matplotlib.__version__}.")
 print(f"The scikit-learn version is {sklearn.__version__}.")
 print(f"The pandas version is {pd.__version__}.")
 print(f"The seaborn version is {sb.__version__}.")
+
 
 #  Dataset Loading
 file_name = 'train.csv'
@@ -44,17 +48,21 @@ print("The train dataset has been loaded")
 #displays the initial data of train data
 print(bfriday_sales_train_df.head(10))
 
+
 # display the number of rows and columns from the train dataset (dimensions)
 print(bfriday_sales_train_df.shape)
 
+
 # displays complete information about the dataset
 print(bfriday_sales_train_df.info())
+
 
 # Dropping the User_ID and Product_ID columns
 bfriday_sales_train_df = bfriday_sales_train_df.drop(['User_ID', 'Product_ID'], axis=1)
 
 # verify the initial data
 print(bfriday_sales_train_df.head())
+
 
 # Handling special characters in 'Age' and 'Stay_In_Current_City_Years' columns
 
@@ -91,6 +99,7 @@ for column in columns_to_encode:
 # verify the initial data of the transformed DataFrame
 print(bfriday_sales_train_df.head())
 
+
 # Function to fill missing values with mean and convert to integer
 def fill_missing_and_convert_to_int(df, column_name):
     df[column_name] = df[column_name].fillna(df[column_name].mean()).astype('int64')
@@ -102,10 +111,12 @@ fill_missing_and_convert_to_int(bfriday_sales_train_df, 'Product_Category_3')
 # Verify the changes
 print(bfriday_sales_train_df.info())
 
+
 # Convert the Product_Category_2 and Product_Category_3 data types to int64
 bfriday_sales_train_df['Product_Category_2'] =bfriday_sales_train_df['Product_Category_2'].astype('int64')
 bfriday_sales_train_df['Product_Category_3'] =bfriday_sales_train_df['Product_Category_3'].astype('int64')
 print(bfriday_sales_train_df.info())
+
 
 # Fill missing values in the DataFrame with the mean of each column to handle NaN values
 df_filled = bfriday_sales_train_df.fillna(bfriday_sales_train_df.mean())
@@ -129,12 +140,15 @@ print(bfriday_sales_train_df.info())
 X = bfriday_sales_train_df.drop(columns=['Purchase', 'Product_Category_3'], axis=1) # dropping Product_Category_3
 y = bfriday_sales_train_df['Purchase']
 
+
 # Assuming X and y are already defined with features and target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
 
 # Split the DataFrame into features (X1) and target (y1), using 'Purchase' as the target
 X1 = bfriday_sales_train_df.drop(columns=['Purchase', 'Product_Category_3'], axis=1)
 y1 = bfriday_sales_train_df['Purchase']
+
 
 # splitting the data into 70% - 30%
 X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, test_size=0.3, random_state=42)
@@ -180,17 +194,22 @@ X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns)
 print("Scaled X_train after encoding and scaling:\n", X_train.head())
 print("Scaled X_test after encoding and scaling:\n", X_test.head())
 
+
 # Check for any NaN values in the dataset after encoding and before scaling
 print("NaN values in X_train after encoding:", X_train.isna().sum())
 print("NaN values in X_test after encoding:", X_test.isna().sum())
+
 
 # Fill any remaining NaN values in X_train and X_test (if any)
 X_train = X_train.fillna(0)  # You can fill with 0 or any appropriate value
 X_test = X_test.fillna(0)
 
+
 # Verify that there are no NaN values remaining
 print("NaN values in X_train after filling:", X_train.isna().sum())
 print("NaN values in X_test after filling:", X_test.isna().sum())
+
+
 
 # Now apply StandardScaler to the data again
 sc = StandardScaler()
@@ -211,7 +230,9 @@ bfriday_sales_train_df.head()
 
 # Model Training and Evalutaion
 
-# Linear Regression(80-20)
+# Linear Regression
+
+# 80-20
 
 # Import necessary libraries
 #from sklearn.linear_model import LinearRegression
@@ -225,12 +246,14 @@ def train_linear_regression(X_train, y_train):
 # Train the model using the training data
 linear_reg_model = train_linear_regression(X_train, y_train)
 
+
 # Define a function to make predictions
 def make_predictions(model, X_test):
     return model.predict(X_test)
 
 # Make predictions using the trained model
 predictions = make_predictions(linear_reg_model, X_test)
+
 
 # Bar Plot for Actual vs Predicted Purchases with numeric labels
 def plot_actual_vs_predicted_bar_numeric(y_test, predictions, num_samples=20):
@@ -264,6 +287,7 @@ def plot_actual_vs_predicted_bar_numeric(y_test, predictions, num_samples=20):
 # Call the function
 plot_actual_vs_predicted_bar_numeric(y_test, predictions, num_samples=20)
 
+
 # Import the necessary metrics
 #from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
@@ -286,12 +310,15 @@ metrics = evaluate_model(y_test, predictions)
 # Display the metrics
 print(metrics)
 
+
 # 70-30
+
 # Train the model using the 70% training data
 linear_reg_model_70 = train_linear_regression(X1_train, y1_train)
 
 # Make predictions using the trained model
 predictions_70 = make_predictions(linear_reg_model_70, X1_test)
+
 
 # Bar Plot for Actual vs Predicted Purchases with numeric labels and custom bar colors (70-30 split)
 def plot_actual_vs_predicted_bar_numeric_70_30(y1_test, predictions_70, num_samples=20):
@@ -324,6 +351,7 @@ def plot_actual_vs_predicted_bar_numeric_70_30(y1_test, predictions_70, num_samp
 
 # Call the function
 plot_actual_vs_predicted_bar_numeric_70_30(y1_test, predictions_70, num_samples=20)
+
 
 # Evaluate the model's performance for 70-30 split
 metrics_70 = evaluate_model(y1_test, predictions_70)
@@ -380,9 +408,12 @@ plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
 plt.show()
 
 
-# Random Forest regressor( 80-20)
+# Random Forest regressor
+
+# 80-20
 
 #from sklearn.ensemble import RandomForestRegressor
+
 # Define a function to train the Random Forest Regressor model
 def train_random_forest(X_train, y_train):
     rf_model = RandomForestRegressor(random_state=30, n_estimators=200)  # Initialize the model
@@ -427,6 +458,7 @@ def plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20):
 # Call the function for the Random Forest predictions
 plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20)
 
+
 # Import the necessary metrics
 #from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
@@ -455,8 +487,10 @@ print(metrics)
 # Train the model for 70-30 split
 rf_model_70 = train_random_forest(X1_train, y1_train)
 
+
 # Make predictions for 70-30 split
 predictions_70 = make_predictions(rf_model_70, X1_test)
+
 
 # Bar Plot for Actual vs Predicted Purchases (70-30 Split)
 def plot_actual_vs_predicted_bar_70_30(y1_test, predictions_70, num_samples=20):
@@ -489,6 +523,7 @@ def plot_actual_vs_predicted_bar_70_30(y1_test, predictions_70, num_samples=20):
 
 # Call the function for the 70-30 Random Forest predictions
 plot_actual_vs_predicted_bar_70_30(y1_test, predictions_70, num_samples=20)
+
 
 # Evaluate the model's performance for 70-30 split
 metrics_70 = evaluate_model(y1_test, predictions_70)
@@ -541,11 +576,16 @@ axes[1].grid(alpha=0.3)
 
 # Adjust layout and show plot
 plt.suptitle('Comparison of Evaluation Metrics for 80-20 and 70-30 Splits')
-plt.tight_layout(rect=[0, 0, 1, 0.95])  
+plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
 plt.show()
 
-#  XGBoost regressor(80-20)
+
+#  XGBoost regressor
+
+# 80-20
+
 #from xgboost import XGBRegressor
+
 
 # Define a function to train the XGBoost Regressor
 def train_xgboost_regressor(X_train, y_train):
@@ -553,10 +593,12 @@ def train_xgboost_regressor(X_train, y_train):
     xgb_model.fit(X_train, y_train)  # Train the model
     return xgb_model
 
+
 #Train the model and make predictions
 # 80-20 split
 xgb_model_80 = train_xgboost_regressor(X_train, y_train)
 predictions_80 = make_predictions(xgb_model_80, X_test)
+
 
 # Bar Plot for Actual vs Predicted Purchases
 def plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20):
@@ -590,6 +632,8 @@ def plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20):
 # Call the function for the Random Forest predictions
 plot_actual_vs_predicted_bar(y_test, predictions_80, num_samples=20)
 
+
+
 # Import the necessary metrics
 #from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
@@ -612,7 +656,9 @@ metrics = evaluate_model(y_test, predictions_80)
 # Display the metrics
 print(metrics)
 
+
 # 70-30
+
 # Train the model for 70-30 split
 xgb_model_70 = train_xgboost_regressor(X1_train, y1_train)
 
@@ -652,6 +698,7 @@ def plot_actual_vs_predicted_bar(y_test, predictions_70, num_samples=20):
 
 # Call the function for the Random Forest predictions
 plot_actual_vs_predicted_bar(y_test, predictions_70, num_samples=20)
+
 
 # Evaluate the model's performance for 70-30 split
 metrics_70 = evaluate_model(y1_test, predictions_70)
@@ -706,6 +753,8 @@ axes[1].grid(alpha=0.3)
 plt.suptitle('Comparison of Evaluation Metrics for 80-20 and 70-30 Splits')
 plt.tight_layout(rect=[0, 0, 1, 0.95])  # Leave space for the super title
 plt.show()
+
+
 
 # Performance Metrics Comparison of Regression Models (80-20 vs 70-30 Splits)
 
@@ -767,6 +816,7 @@ plot_metrics_comparison(models, metrics_80, metrics_70, metric_names)
 
 
 # Hyperparameter tuning
+
 
 #from sklearn.model_selection import train_test_split, RandomizedSearchCV
 #from sklearn.linear_model import LinearRegression
@@ -846,13 +896,12 @@ def tune_and_evaluate(model, param_dist, X_train, y_train, X_test, y_test):
     
     return best_model, best_params, mae, rmse, r2
 
-# Evaluation (with 1 iteration for faster testing)
+# evaluation (with 1 iteration for faster testing)
 results_80_rf = tune_and_evaluate(rf_model, param_dist_rf, X_train, y_train, X_test, y_test)
 results_70_rf = tune_and_evaluate(rf_model, param_dist_rf, X1_train, y1_train, X1_test, y1_test)
 
 results_80_xgb = tune_and_evaluate(xgb_model, param_dist_xgb, X_train, y_train, X_test, y_test)
 results_70_xgb = tune_and_evaluate(xgb_model, param_dist_xgb, X1_train, y1_train, X1_test, y1_test)
-
 
 #from IPython.display import display
 
@@ -868,5 +917,17 @@ results = {
     "R2 (70-30)": [results_80_rf[4], results_80_xgb[4], results_70_rf[4], results_70_xgb[4]]
 }
 
+
+
 # Create the DataFrame
 results_df = pd.DataFrame(results)
+
+
+
+# Display the DataFrame
+display(results_df)
+
+
+
+
+
